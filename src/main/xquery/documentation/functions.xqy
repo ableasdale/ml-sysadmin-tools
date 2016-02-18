@@ -3,7 +3,7 @@ xquery version "1.0-ml";
 import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "/lib/lib-view.xqy";
 import module namespace common = "http://help.marklogic.com/common" at "/lib/common.xqy";
 
-declare variable $restriction-base as xs:string := xdmp:get-request-field("q", "");
+declare variable $restriction-base as xs:string := xdmp:get-request-field("q", "cts");
 
 declare function local:get-fn-names() as xs:string+ {
   
@@ -27,7 +27,7 @@ element table {attribute class {"table table-bordered table-striped"},
             order by xdmp:function-name($i) cast as xs:string
             return  
             (element tr {
-                element td {element a { attribute href {concat("/functions.xqy?q=",fn:function-name($i) cast as xs:string)},  fn:function-name($i) cast as xs:string}
+                element td {element a { attribute href {concat("/documentation/functions.xqy?q=",fn:function-name($i) cast as xs:string)},  fn:function-name($i) cast as xs:string}
             },
 (: )element td {xdmp:describe($i) cast as xs:string}, :)
             element td {fn:function-arity($i)},
@@ -59,7 +59,7 @@ lib-view:create-bootstrap-page("Built-in functions",
             lib-view:page-header("Built-in functions","TODO",()),
                 element div {
                     attribute class {"row"},
-                    element p {"TODO - restrict search ?q"},
+                    element h3 {element a {attribute href {"http://docs.marklogic.com/"||xdmp:get-request-field("q")}, attribute target {"_blank"},xdmp:get-request-field("q")}},
                     local:build-table()
                 }
         )
