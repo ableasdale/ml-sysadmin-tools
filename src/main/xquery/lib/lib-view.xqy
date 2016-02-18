@@ -53,10 +53,11 @@ declare function lib-view:navigation() as element(div) {
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/documentation/messages.xqy">Exceptions</a></li>
+                            <li><a href="/documentation/functions.xqy">Functions</a></li>
                             <li><a href="/wp-admin/editor.xqy">Schemas</a></li>
                         </ul>
                     </li>
-                    
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Query Tools <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
@@ -66,7 +67,7 @@ declare function lib-view:navigation() as element(div) {
                         </ul>
                     </li>
                     <li><a href="/log.xqy">Log</a></li>
-                    
+
                 </ul>
             </div>
         </div>
