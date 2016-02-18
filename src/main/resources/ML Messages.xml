@@ -1,17 +1,37 @@
-<export><workspace name="ML Messages"><query name="2. Load Messages" focus="false" active="true" content-source="16009290856781869554:0:Apps" mode="xquery">xquery version "1.0-ml";
+<export><workspace name="ML Messages"><query name="3. Load Messages" focus="true" active="true" content-source="4603626565879925304:0:Apps" mode="xquery">xquery version "1.0-ml";
 
 declare namespace dir = "http://marklogic.com/xdmp/directory";
 declare namespace msg = "http://marklogic.com/xdmp/messages";
+
+declare variable $DATABASE as xs:unsignedLong := xdmp:database("ml-messages");
 
 for $f in xdmp:filesystem-directory("Messages")/node()  (://dir:directory :)
 return 
 for $i in xdmp:document-get($f/dir:pathname)/msg:messages/msg:message
 return 
-xdmp:document-insert(concat("/",$i/msg:code,".xml"), $i, (), $f/dir:filename)
-</query><query name="1. Create database" focus="true" active="true" content-source="16009290856781869554:0:Apps" mode="xquery">xquery version "1.0-ml";
+xdmp:document-insert(concat("/",$i/msg:code,".xml"), $i, (), $f/dir:filename, (), xdmp:database-forests($DATABASE))
+</query><query name="1. Create Database" focus="false" active="true" content-source="16009290856781869554:0:Apps" mode="xquery">xquery version "1.0-ml";
 
 import module namespace info = "http://marklogic.com/appservices/infostudio" at "/MarkLogic/appservices/infostudio/info.xqy";
 
-info:database-create("ml-messages", 2)
+declare variable $DATABASE as xs:string := "ml-messages";
 
-(: TODO - enable the collection lexicon! :)</query></workspace></export>
+info:database-create($DATABASE, 2)
+
+
+
+
+
+
+</query><query name="2. Configure Database" focus="false" active="true" content-source="16009290856781869554:0:Apps" mode="xquery">xquery version "1.0-ml";
+
+import module namespace admin = "http://marklogic.com/xdmp/admin" at "/MarkLogic/admin.xqy";
+
+declare variable $DATABASE as xs:unsignedLong := xdmp:database("ml-messages");
+declare variable $CONFIG as element(configuration) := admin:get-configuration();
+
+let $CONFIG := admin:database-set-collection-lexicon($CONFIG, $DATABASE, fn:true())
+let $CONFIG := admin:database-set-locking($CONFIG, $DATABASE, "strict")
+return
+  admin:save-configuration($CONFIG)
+</query></workspace></export>

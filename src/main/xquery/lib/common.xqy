@@ -93,47 +93,6 @@ return (element li {attribute class {"user-name"}, element span {attribute class
     </options>)
 };
 
-
-
-declare function common:bootstrap-shim($title, $content) {
-    xdmp:set-response-content-type("text/html; charset=utf-8"),
-    ("<!DOCTYPE html>",
-    <html
-        lang="en">
-        <head>
-            <meta
-                charset="utf-8"/>
-            <meta
-                http-equiv="X-UA-Compatible"
-                content="IE=edge"/>
-            <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1"/>
-            <title>{$title}</title>
-            <link
-                rel="stylesheet"
-                href="/tmp/bootstrap-3.3.5-dist/css/bootstrap.min.css"/>
-            <link
-                rel="stylesheet"
-                href="/tmp/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css"/>
-            <link
-                rel="stylesheet"
-                href="/css/styles.css"/>
-            <script
-                src="/tmp/bootstrap-3.3.5-dist/js/jquery.min.js">{" "}</script>
-            <script
-                src="/tmp/bootstrap-3.3.5-dist/js/bootstrap.min.js">{" "}</script>
-        </head>
-        <body
-            role="document">
-            {
-                common:nav(),
-                $content
-            }
-        </body>
-    </html>)
-};
-
 declare function common:nav-item($path as xs:string, $name as xs:string) {
     element li {
         if (xdmp:get-request-path() eq $path) then
@@ -146,7 +105,6 @@ declare function common:nav-item($path as xs:string, $name as xs:string) {
         }
     }
 };
-
 
 declare function common:nav() {
     <nav
