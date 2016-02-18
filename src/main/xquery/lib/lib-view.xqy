@@ -27,7 +27,6 @@ declare function lib-view:create-bootstrap-page($title as xs:string, $content as
     element body { element div { attribute class {"container"}, $content }}
     },
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">{" "}</script>,
-    (: <script src="/assets/js/jquery.logviewer.js">{" "}</script>, :)
     <script src="/assets/js/logtail.js">{" "}</script>,
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">{" "}</script>
 };
@@ -86,6 +85,12 @@ declare function lib-view:get-log-js() {
     (
     <script language="javascript" type="text/javascript">
     <![CDATA[
+
+$(document).ready(function() {
+   // window.onerror = error;
+    get_log();
+});
+
     
             // Check for the various File API support.
             // https://www.adobe.com/devnet/archive/html5/articles/real-world-example-html5-filesystem-api.html
@@ -95,12 +100,6 @@ if (window.File || window.FileReader || window.FileList || window.Blob) {
 } else {
   console.err('The File APIs are not fully supported in this browser.');
 }
-    
-    jQuery(document).bind("ready", function() {
-//         jQuery('#logcontent').logViewer({logUrl: '/get-error-log.xqy?filename=ErrorLog.txt'});
-        
-        // '/Users/ableasdale/Library/Application Support/MarkLogic/Data/Logs/ErrorLog.txt'});
-    });
     ]]>
     </script>)
 };

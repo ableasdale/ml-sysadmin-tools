@@ -1,15 +1,13 @@
 /* Copyright (c) 2012: Daniel Richman. License: GNU GPL 3 */
 /* Additional features: Priyesh Patel                     */
 
-(function () {
-
 var dataelem = "#data";
 var pausetoggle = "#pause";
 var scrollelems = ["html", "body"];
 
 var url = "/get-error-log.xqy?filename=ErrorLog.txt";
 var fix_rn = true;
-var load = 30 * 1024; /* NOT 30KB */
+var load = 30 * 1024; /* 30KB */
 var poll = 1000; /* 1s */
 
 var kill = false;
@@ -18,17 +16,18 @@ var pause = false;
 var reverse = true;
 var log_data = "";
 var log_file_size = 0;
+var timeout = null;
 
 /* :-( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt */
 function parseInt2(value) {
-    if(!(/^[0-9]+$/.test(value))) throw "Invalid integer " + value;
+    if (!(/^[0-9]+$/.test(value))) throw "Invalid integer " + value;
     var v = Number(value);
     if (isNaN(v))                 throw "Invalid integer " + value;
     return v;
 }
 
 function get_log() {
-    if (kill | loading) return;
+    if (kill || loading) return;
     loading = true;
 
     var range;
@@ -50,11 +49,12 @@ function get_log() {
      * have. This is to prevent a 416 "Range unsatisfiable" error: a response
      * of length 1 tells us that the file hasn't changed yet. A 416 shows that
      * the file has been trucnated */
-
     $.ajax(url, {
         dataType: "text",
         cache: false,
         headers: {Range: "bytes=" + range},
+
+
         success: function (data, s, xhr) {
             loading = false;
 
@@ -72,7 +72,7 @@ function get_log() {
                     throw "Expected 206 Partial Content";
 
                 content_size = log_file_size =
-                        parseInt2(xhr.getResponseHeader("Content-Length"));
+                    parseInt2(xhr.getResponseHeader("Content-Length"));
             } else {
                 throw "Unexpected status " + xhr.status;
             }
@@ -90,7 +90,6 @@ function get_log() {
                 } else {
                     log_data = data;
                 }
-
                 added = true;
             } else {
                 /* Drop the first byte (see above) */
@@ -107,20 +106,19 @@ function get_log() {
 
             if (added)
                 show_log(added);
-            setTimeout(get_log, poll);
+            timeout = setTimeout(get_log, poll);
         },
+
         error: function (xhr, s, t) {
             loading = false;
 
             if (xhr.status === 416 || xhr.status == 404) {
                 /* 416: Requested range not satisfiable: log was truncated. */
                 /* 404: Retry soon, I guess */
-
                 log_file_size = 0;
                 log_data = "";
                 show_log();
-
-                setTimeout(get_log, poll);
+                timeout = setTimeout(get_log, poll);
             } else {
                 throw "Unknown AJAX Error (status " + xhr.status + ")";
             }
@@ -146,14 +144,13 @@ function show_log() {
     if (reverse) {
         var t_a = t.split(/\n/g);
         t_a.reverse();
-        if (t_a[0] == "") 
+        if (t_a[0] == "")
             t_a.shift();
         t = t_a.join("\n");
     }
 
     if (fix_rn)
         t = t.replace(/\n/g, "\r\n");
-
     $(dataelem).text(t);
     if (!reverse)
         scroll(-1);
@@ -161,32 +158,7 @@ function show_log() {
 
 function error(what) {
     kill = true;
-
-    $(dataelem).text("An error occured :-(.\r\n" +
-                     "Reloading may help; no promises.\r\n" + 
-                     what);
+    $(dataelem).text("An error occured :-(.\r\n" + "Reloading may help; no promises.\r\n" + what);
     scroll(0);
-
     return false;
 }
-
-$(document).ready(function () {
-    window.onerror = error;
-
-    /* If URL is /logtail/?noreverse display in chronological order */
-    var hash = location.search.replace(/^\?/, "");
-    if (hash == "noreverse")
-        reverse = false;
-
-    /* Add pause toggle */
-    $(pausetoggle).click(function (e) {
-        pause = !pause;
-        $(pausetoggle).text(pause ? "Unpause" : "Pause");
-        show_log();
-        e.preventDefault();
-    });
-
-    get_log();
-});
-
-})();

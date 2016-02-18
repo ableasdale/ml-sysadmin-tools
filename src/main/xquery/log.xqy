@@ -15,6 +15,12 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Log Viewer",
     lib-view:page-header("Log Viewer", "TODO", ()),
     element div { 
         attribute class {"row"},
+        <div id="header">
+            <div id="rev"> Chrono</div>
+            <div id="pause"> Pause</div>
+            <input id="input" />
+            <div id="search"> Filter</div>
+        </div>,
         <pre id="data" style="height:30em;">Loading...</pre>    
     },
     lib-view:get-log-js()
