@@ -27,6 +27,8 @@ declare function lib-view:create-bootstrap-page($title as xs:string, $content as
     element body { element div { attribute class {"container"}, $content }}
     },
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">{" "}</script>,
+    (: <script src="/assets/js/jquery.logviewer.js">{" "}</script>, :)
+    <script src="/assets/js/logtail.js">{" "}</script>,
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">{" "}</script>
 };
 
@@ -55,6 +57,17 @@ declare function lib-view:navigation() as element(div) {
                             <li><a href="/wp-admin/editor.xqy">Schemas</a></li>
                         </ul>
                     </li>
+                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Query Tools <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/query-tools/queries.xqy">Running Queries</a></li>
+                            <li><a href="/query-tools/plan.xqy">Plan Manager</a></li>
+                            <li><a href="/query-tools/termkey.xqy">Term Key Lookup</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/log.xqy">Log</a></li>
+                    
                 </ul>
             </div>
         </div>
@@ -67,4 +80,27 @@ declare function lib-view:page-header($title as xs:string, $subtitle as xs:strin
             element div {attribute class {"col-md-3"}, attribute style {"padding-top:1em;"}, $dropdown}
         },
         element div {attribute class {"row"}, lib-view:navigation()}
+};
+
+declare function lib-view:get-log-js() {
+    (
+    <script language="javascript" type="text/javascript">
+    <![CDATA[
+    
+            // Check for the various File API support.
+            // https://www.adobe.com/devnet/archive/html5/articles/real-world-example-html5-filesystem-api.html
+            // http://www.html5rocks.com/en/tutorials/file/dndfiles/
+if (window.File || window.FileReader || window.FileList || window.Blob) {
+  console.log("full log support" + window.File);
+} else {
+  console.err('The File APIs are not fully supported in this browser.');
+}
+    
+    jQuery(document).bind("ready", function() {
+//         jQuery('#logcontent').logViewer({logUrl: '/get-error-log.xqy?filename=ErrorLog.txt'});
+        
+        // '/Users/ableasdale/Library/Application Support/MarkLogic/Data/Logs/ErrorLog.txt'});
+    });
+    ]]>
+    </script>)
 };
