@@ -1,12 +1,11 @@
 xquery version "1.0-ml";
 
 import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "/lib/lib-view.xqy";
-
-declare namespace admin = "http://marklogic.com/xdmp/admin";
-
 import module namespace common = "http://help.marklogic.com/common" at "/lib/common.xqy";
 
-declare variable $KEY as xs:string := xdmp:get-request-field("k", "0");
+declare namespace qry = "http://marklogic.com/cts/query";
+
+declare variable $KEY as xs:string := xdmp:get-request-field("k", xs:string((xdmp:plan(/doc())//qry:key)[1]));
 
 
 (: Module main :)

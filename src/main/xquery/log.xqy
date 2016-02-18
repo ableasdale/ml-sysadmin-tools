@@ -11,10 +11,8 @@ declare variable $LOG as xs:string := xdmp:get-request-field("log", "0");
 (: Module main :)
 
 lib-view:create-bootstrap-page("MarkLogic Tools: Log Viewer",
-    (
-    lib-view:page-header("Log Viewer", "TODO", ()),
-    element div { 
-        attribute class {"row"},
+    (lib-view:page-header("Log Viewer", "TODO", ()),
+    element div {attribute class {"row"},
         <div id="header">
             <div id="rev"> Chrono</div>
             <div id="pause"> Pause</div>

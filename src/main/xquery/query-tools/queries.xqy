@@ -3,7 +3,7 @@ xquery version "1.0-ml";
 import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "/lib/lib-view.xqy";
 
 declare namespace ss = "http://marklogic.com/xdmp/status/server";
-import module namespace common = "http://help.marklogic.com/common" at "/lib/common.xqy";
+
 
 declare variable $debug as xs:boolean := fn:false();
 
@@ -65,23 +65,22 @@ declare function local:request($request-status as element(ss:request-status)) as
 (: Module main :)
 
 lib-view:create-bootstrap-page("MarkLogic Tools: Running Queries",
-    (
-    lib-view:page-header("Long running queries", "TODO", ()),
-    
-    element h3 {"Cluster application server status @ ",fn:current-dateTime()},
-    element table {attribute class {"table table-bordered table-striped"},
-        element thead {element tr {for $i in ("Server", "Host", "Elapsed Time", "Invoked by") return element th {$i}}},
-        element tbody {	
-          for $grp in xdmp:groups()
-          return
-          for $host in xdmp:group-hosts($grp)
-          for $server in xdmp:group-servers($grp)
-          return 
-          try { local:request(xdmp:server-status($host, $server)//ss:request-status)}
-          catch ($e) {xdmp:log(concat("[MarkLogic Support Request Script] - Unable to access the application server status for the application server named: ", xdmp:server-name($server), " on the host: ", xdmp:host-name($host)), "error")}
-    }}
-            
-    )
+    (lib-view:page-header("Long running queries", "TODO", ()),
+    element div {attribute class {"row"},
+        element h3 {"Cluster application server status @ ",fn:current-dateTime()},
+        element table {attribute class {"table table-bordered table-striped"},
+            element thead {element tr {for $i in ("Server", "Host", "Elapsed Time", "Invoked by") return element th {$i}}},
+            element tbody {
+              for $grp in xdmp:groups()
+              return
+              for $host in xdmp:group-hosts($grp)
+              for $server in xdmp:group-servers($grp)
+              return
+              try { local:request(xdmp:server-status($host, $server)//ss:request-status)}
+              catch ($e) {xdmp:log(concat("[MarkLogic Support Request Script] - Unable to access the application server status for the application server named: ", xdmp:server-name($server), " on the host: ", xdmp:host-name($host)), "error")}
+            }
+        }
+    })
 )
 
 
