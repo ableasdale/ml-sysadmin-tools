@@ -64,7 +64,9 @@ declare function local:request($request-status as element(ss:request-status)) as
 (: Module main :)
 
 lib-view:create-bootstrap-page("MarkLogic Tools: Running Queries",
-    (lib-view:page-header("Long running queries", "TODO", ()),
+element div {
+attribute class {"container"},
+    lib-view:page-header("Long running queries", "TODO", " "),
     element div {attribute class {"row"},
         element h3 {"Cluster application server status @ ",fn:current-dateTime()},
         element table {attribute class {"table table-bordered table-striped"},
@@ -79,8 +81,7 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Running Queries",
               catch ($e) {xdmp:log(concat("[MarkLogic Support Request Script] - Unable to access the application server status for the application server named: ", xdmp:server-name($server), " on the host: ", xdmp:host-name($host)), "error")}
             }
         }
-    })
-)
+    }})
 
 
         

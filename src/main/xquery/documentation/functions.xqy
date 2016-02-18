@@ -76,12 +76,13 @@ element table {attribute class {"table table-bordered table-striped"},
 
 
 lib-view:create-bootstrap-page("Built-in functions",
-        (
-            lib-view:page-header("Built-in functions",$restriction-base,local:restriction-base-dropdown-items()),
-                element div {
-                    attribute class {"row"},
-                    element h3 {element a {attribute href {"http://docs.marklogic.com/"||$restriction-base}, attribute target {"_blank"},$restriction-base}},
-                    local:build-table()
-                }
-        )
+    element div {
+        attribute class {"container"},
+            lib-view:page-header("Built-in functions", $restriction-base,local:restriction-base-dropdown-items()),
+            element div {
+                attribute class {"row"},
+                element h3 {element a {attribute href {"http://docs.marklogic.com/"||$restriction-base}, attribute target {"_blank"}, $restriction-base}},
+                local:build-table()
+        }
+    }
 )

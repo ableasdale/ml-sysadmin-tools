@@ -7,15 +7,12 @@ var scrollelems = ["html", "body"];
 
 var fix_rn = true;
 var load = 30 * 1024; /* 30KB */
-var poll = 2000; /* 2s */
-
 var kill = false;
 var loading = false;
 var pause = false;
 var reverse = true;
 var log_data = "";
 var log_file_size = 0;
-var timeout = null;
 
 /* :-( https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt */
 function parseInt2(value) {
@@ -52,7 +49,6 @@ function get_log(url) {
         dataType: "text",
         cache: false,
         headers: {Range: "bytes=" + range},
-
 
         success: function (data, s, xhr) {
             loading = false;
@@ -103,9 +99,7 @@ function get_log(url) {
                     added = true;
             }
 
-            if (added)
-                show_log(added);
-            timeout = setTimeout(get_log, poll);
+            if (added) {show_log(added);}
         },
 
         error: function (xhr, s, t) {
@@ -117,7 +111,7 @@ function get_log(url) {
                 log_file_size = 0;
                 log_data = "";
                 show_log();
-                timeout = setTimeout(get_log, poll);
+                //timeout = setTimeout(get_log(url), poll);
             } else {
                 throw "Unknown AJAX Error (status " + xhr.status + ")";
             }

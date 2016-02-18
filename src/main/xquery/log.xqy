@@ -20,22 +20,22 @@ declare function local:file-select(){
         element ul {
             attribute class {"dropdown-menu"}, attribute aria-labelledby {"file-select"},
             element li {attribute class {"dropdown-header"}, "Available Files:"},
-            for $x in xdmp:filesystem-directory(common:get-log-directory())/dir:entry/dir:filename
+            for $x in xdmp:filesystem-directory(common:get-log-directory())/dir:entry
+            where (xs:integer($x/dir:content-length) gt 0)
             return
-                element li {element a {attribute href {concat("?log=", $x)}, $x}}
+                element li {element a {attribute href {concat("?log=", xs:string($x/dir:filename))}, xs:string($x/dir:filename)}}
         }
     }
 };
 
 (: Module main :)
 lib-view:create-bootstrap-page("MarkLogic Tools: Log Viewer",
-    (lib-view:page-header("Log Viewer", $LOG, local:file-select()),
-    element div {attribute class {"row"},
-       element pre {attribute id {"data"}, attribute style {"height:30em;"},$LOG}
-    })
-)
-
-
+    element div {
+        attribute class {"container"},
+        lib-view:page-header("Log Viewer", $LOG, local:file-select()),
+        element div {attribute class {"row"},
+            element pre {attribute id {"data"}, attribute style {"height:30em;"},$LOG}
+    }})
 
 (:
 ,lib-view:get-log-js()

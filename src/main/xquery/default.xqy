@@ -5,7 +5,6 @@ import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" 
 declare namespace f = "http://marklogic.com/xdmp/status/forest";
 declare variable $DATABASE as xs:string := xdmp:get-request-field("db", "Documents");
 
-
 declare function local:database-select() as element(div) {
     element div {
         attribute class {"dropdown"},
@@ -63,10 +62,9 @@ declare function local:rebalancer-preview() as element(div) {
     }
 };
 
-
 lib-view:create-bootstrap-page("MarkLogic Tools: Rebalancer preview",
-    (
-    lib-view:page-header("Forest counts (rebalancer preview)", $DATABASE, local:database-select()),
-    local:rebalancer-preview()
-    )
-)
+    element div {
+        attribute class {"container"},
+        lib-view:page-header("Forest counts (rebalancer preview)", $DATABASE, local:database-select()),
+        local:rebalancer-preview()
+    })

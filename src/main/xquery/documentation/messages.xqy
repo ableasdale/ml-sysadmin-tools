@@ -57,9 +57,10 @@ declare function local:rebalancer-preview() {
     }
 };
 
-lib-view:create-bootstrap-page("MarkLogic Exceptions", 
-    (
-    lib-view:page-header("Exception Messages",$COLLECTION,local:database-select()),
-    local:rebalancer-preview()
-    )
-)
+lib-view:create-bootstrap-page("MarkLogic Exceptions",
+element div {
+attribute class {"container"},
+lib-view:page-header("Exception Messages", $COLLECTION,local:database-select()),
+local:rebalancer-preview()
+})
+

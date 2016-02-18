@@ -3,6 +3,7 @@ xquery version "1.0-ml";
 module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view";
 
 declare function lib-view:create-bootstrap-page($title as xs:string, $content as element()) {
+    xdmp:log("Creating page: "|| $title),
     xdmp:set-response-content-type("text/html; charset=utf-8"),
     '<!DOCTYPE html>',
     element html {attribute lang {"en"},
@@ -24,7 +25,7 @@ declare function lib-view:create-bootstrap-page($title as xs:string, $content as
             attribute crossorigin {"anonymous"}
         }
     },
-    element body { element div { attribute class {"container"}, $content }}
+    element body { $content }
     },
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">{" "}</script>,
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">{" "}</script>,

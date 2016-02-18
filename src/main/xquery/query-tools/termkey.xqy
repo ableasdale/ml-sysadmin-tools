@@ -11,28 +11,30 @@ declare variable $KEY as xs:string := xdmp:get-request-field("k", xs:string((xdm
 (: Module main :)
 
 lib-view:create-bootstrap-page("MarkLogic Tools: Term Key Explorer",
-    (
-    lib-view:page-header("Term Key Lookup", "TODO", ()),
-    element div { 
+element div {
+    attribute class {"container"},
+    lib-view:page-header("Term Key Lookup", "TODO", " "),
+    element div {
         attribute class {"row"},
         element h3 {"Term Key:"},
         element p {$KEY},
         
         element h3 {"Reverse Lookup of Search Term (and indexes) from Term Key:"},
-        element pre {element code{xdmp:quote(common:lookup-term-from-key($KEY cast as xs:unsignedLong))}},
-
+        element pre {element code {xdmp:quote(common:lookup-term-from-key($KEY cast as xs:unsignedLong))}},
+        
         element hr {" "},
         element p {"Download matching docs in ZIP"},
         element h3 {common:get-estimate-for-term-key($KEY cast as xs:unsignedLong), "URIs Matched for key ", $KEY},
         
         element ul {
-            for $i in common:get-uris-from-term-key($KEY) 
-            return element li {$i}
+            for $i in common:get-uris-from-term-key($KEY)
+            return
+                element li {$i}
         }
         
     }
-    )
-)
+})
 
 
-    
+
+

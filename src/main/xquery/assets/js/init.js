@@ -1,9 +1,11 @@
 $(document).ready(function() {
-    var running = false;
-    var url = "/get-error-log.xqy?";
 
-    if(running === false && $("pre#data").length > 0){
-        console.log("found my div");
+    var url = "/get-error-log.xqy?filename=";
+    var poll = 3000; /* 2s */
+
+
+    if($("pre#data").length > 0){
+
        // console.log($("pre#data").value);
 
         //var file = SelectText($('pre')[0]); // $("pre[id='data']").val();
@@ -11,8 +13,15 @@ $(document).ready(function() {
         // console.dir($("pre#data")[0].innerText);
         var file = $("pre#data")[0].innerText  //$("#data").textContent;
         console.log("file: "+url+file);
+        console.log("should init once...");
         get_log(url + file);
-        running = true;
-    }
 
+        window.setInterval(function(){
+            get_log(url+file)
+        }, poll);
+        // setTimeout(get_log(url+file), poll);
+        // get_log(url + file);
+
+    }
 });
+
