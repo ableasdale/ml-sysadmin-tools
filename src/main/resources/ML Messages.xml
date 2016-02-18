@@ -1,0 +1,17 @@
+<export><workspace name="ML Messages"><query name="2. Load Messages" focus="false" active="true" content-source="16009290856781869554:0:Apps" mode="xquery">xquery version "1.0-ml";
+
+declare namespace dir = "http://marklogic.com/xdmp/directory";
+declare namespace msg = "http://marklogic.com/xdmp/messages";
+
+for $f in xdmp:filesystem-directory("Messages")/node()  (://dir:directory :)
+return 
+for $i in xdmp:document-get($f/dir:pathname)/msg:messages/msg:message
+return 
+xdmp:document-insert(concat("/",$i/msg:code,".xml"), $i, (), $f/dir:filename)
+</query><query name="1. Create database" focus="true" active="true" content-source="16009290856781869554:0:Apps" mode="xquery">xquery version "1.0-ml";
+
+import module namespace info = "http://marklogic.com/appservices/infostudio" at "/MarkLogic/appservices/infostudio/info.xqy";
+
+info:database-create("ml-messages", 2)
+
+(: TODO - enable the collection lexicon! :)</query></workspace></export>
