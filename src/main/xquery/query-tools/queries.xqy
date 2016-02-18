@@ -4,7 +4,6 @@ import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" 
 
 declare namespace ss = "http://marklogic.com/xdmp/status/server";
 
-
 declare variable $debug as xs:boolean := fn:false();
 
 declare function local:request($request-status as element(ss:request-status)) as element()+

@@ -17,13 +17,34 @@ declare function local:get-fn-names() as xs:string+ {
   
 };
 
+declare function local:restriction-base-dropdown-items() as element(div){
+    element div {
+        attribute class {"dropdown"},
+        element button {
+            attribute class {"btn btn-default dropdown-toggle pull-right"},
+            attribute type {"button"},
+            attribute id {"package-select"},
+            attribute data-toggle {"dropdown"},
+            attribute aria-haspopup {"true"},
+            attribute aria-expanded {"true"},
+            "Choose Namespace ", element span {attribute class {"caret"}}
+        },
+        element ul {
+            attribute class {"dropdown-menu"}, attribute aria-labelledby {"package-select"},
+            element li {attribute class {"dropdown-header"}, "Available Namespaces:"},
+            for $x in ("dbg", "fn", "geo", "json", "map", "math", "prof", "rdf", "sc", "sem", "sql", "temporal", "xs")
+            return
+                element li {element a {attribute href {concat("?q=", $x)}, $x}}
+        }
+    }
+};
 
 declare function local:build-table(){
 element table {attribute class {"table table-bordered table-striped"},
     element thead {element tr {for $i in ("Name", "Arity", "Signature", "Parts", "Return Type") return element th {$i}}},
     element tbody {
         for $i in xdmp:functions()
-            where fn:contains(xdmp:function-name($i) cast as xs:string, $restriction-base)
+            where fn:starts-with(xdmp:function-name($i) cast as xs:string, $restriction-base)
             order by xdmp:function-name($i) cast as xs:string
             return  
             (element tr {
@@ -56,10 +77,10 @@ element table {attribute class {"table table-bordered table-striped"},
 
 lib-view:create-bootstrap-page("Built-in functions",
         (
-            lib-view:page-header("Built-in functions","TODO",()),
+            lib-view:page-header("Built-in functions",$restriction-base,local:restriction-base-dropdown-items()),
                 element div {
                     attribute class {"row"},
-                    element h3 {element a {attribute href {"http://docs.marklogic.com/"||xdmp:get-request-field("q")}, attribute target {"_blank"},xdmp:get-request-field("q")}},
+                    element h3 {element a {attribute href {"http://docs.marklogic.com/"||$restriction-base}, attribute target {"_blank"},$restriction-base}},
                     local:build-table()
                 }
         )
