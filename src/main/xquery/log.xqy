@@ -1,29 +1,50 @@
 xquery version "1.0-ml";
 
 import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "/lib/lib-view.xqy";
-
-declare namespace admin = "http://marklogic.com/xdmp/admin";
-
 import module namespace common = "http://help.marklogic.com/common" at "/lib/common.xqy";
 
-declare variable $LOG as xs:string := xdmp:get-request-field("log", "0");
+declare variable $LOG as xs:string := xdmp:get-request-field("log", "ErrorLog.txt");
+
+declare function local:file-select(){
+     element div {
+        attribute class {"dropdown"},
+        element button {
+            attribute class {"btn btn-default dropdown-toggle pull-right"},
+            attribute type {"button"},
+            attribute id {"file-select"},
+            attribute data-toggle {"dropdown"},
+            attribute aria-haspopup {"true"},
+            attribute aria-expanded {"true"},
+            "Choose Logfile ", element span {attribute class {"caret"}}
+        },
+        element ul {
+            attribute class {"dropdown-menu"}, attribute aria-labelledby {"file-select"},
+            element li {attribute class {"dropdown-header"}, "Available Files:"},
+            for $x in xdmp:filesystem-directory(common:get-log-directory())/dir:entry/dir:filename
+            return
+                element li {element a {attribute href {concat("?log=", $x)}, $x}}
+        }
+    }
+};
 
 (: Module main :)
-
 lib-view:create-bootstrap-page("MarkLogic Tools: Log Viewer",
-    (lib-view:page-header("Log Viewer", "TODO", ()),
+    (lib-view:page-header("Log Viewer", $LOG, local:file-select()),
     element div {attribute class {"row"},
-        <div id="header">
+       element pre {attribute id {"data"}, attribute style {"height:30em;"},$LOG}
+    })
+)
+
+
+
+(:
+,lib-view:get-log-js()
+ <div id="header">
+            <pre id="data" style="height:30em;">Loading...</pre>
+            <input type="hidden" name="country" value="Norway"/>
             <div id="rev"> Chrono</div>
             <div id="pause"> Pause</div>
             <input id="input" />
             <div id="search"> Filter</div>
         </div>,
-        <pre id="data" style="height:30em;">Loading...</pre>    
-    },
-    lib-view:get-log-js()
-    )
-)
-
-
-    
+:)

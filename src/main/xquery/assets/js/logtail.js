@@ -5,10 +5,9 @@ var dataelem = "#data";
 var pausetoggle = "#pause";
 var scrollelems = ["html", "body"];
 
-var url = "/get-error-log.xqy?filename=ErrorLog.txt";
 var fix_rn = true;
 var load = 30 * 1024; /* 30KB */
-var poll = 1000; /* 1s */
+var poll = 2000; /* 2s */
 
 var kill = false;
 var loading = false;
@@ -26,7 +25,7 @@ function parseInt2(value) {
     return v;
 }
 
-function get_log() {
+function get_log(url) {
     if (kill || loading) return;
     loading = true;
 

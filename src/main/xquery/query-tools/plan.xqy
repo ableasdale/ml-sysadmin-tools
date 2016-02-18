@@ -7,8 +7,7 @@ declare variable $QUERY := cts:and-query((cts:word-query("XDMP"), cts:element-va
 
 (: Module main :)
 lib-view:create-bootstrap-page("MarkLogic Tools: Term Key Explorer",
-    (
-    lib-view:page-header("Term Key Lookup", "TODO", ()),
+    (lib-view:page-header("Term Key Lookup", "TODO", ()),
     element div { 
         attribute class {"row"},
         element h3 {"Your cts:query"},
