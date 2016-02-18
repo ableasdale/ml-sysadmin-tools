@@ -1,15 +1,19 @@
 xquery version "1.0-ml";
 
+(: Modified from:  http://docs.marklogic.com/guide/app-dev/binaries#id_99075 :)
+
 declare variable $CHUNKSIZE := (30 * 1024 + 1); (: Calls for data at the  JS layer are in 30K chunks - adding one so there's always more to request on HTTP 206 :)
 declare variable $FILENAME := xdmp:get-request-field("filename", "ErrorLog.txt");
 declare variable $PATHSEP := if (xdmp:platform() = "winnt") then "\\" else "/";
 declare variable $FILEPATH := concat(xdmp:data-directory(), $PATHSEP, "Logs", $PATHSEP, $FILENAME);
 declare variable $DATA := xdmp:external-binary($FILEPATH);
 declare variable $RANGE := xdmp:get-request-header("Range");
+
 (: 
  let $range := (fn:replace(fn:normalize-space($range), "bytes=", ""),"0-")[1]
         let $splits := tokenize($range, "-")
 :)
+
 if ($RANGE)
 then
     let $range := replace(normalize-space($RANGE), "bytes=", "")
