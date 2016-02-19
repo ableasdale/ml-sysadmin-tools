@@ -27,6 +27,10 @@ declare function lib-view:create-bootstrap-page($title as xs:string, $content as
         element link {
             attribute rel {"stylesheet"},
             attribute href {"https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.css"}
+        },
+        element link {
+            attribute rel {"stylesheet"},
+            attribute href {"/assets/css/styles.css"}
         }
     },
     element body { $content }
@@ -35,6 +39,7 @@ declare function lib-view:create-bootstrap-page($title as xs:string, $content as
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.js">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/mode/xquery/xquery.min.js">{" "}</script>,
+    <script src="http://d3js.org/d3.v3.min.js">{" "}</script>,
     <script src="/assets/js/logtail.js">{" "}</script>,
     <script src="/assets/js/init.js">{" "}</script>
 };
