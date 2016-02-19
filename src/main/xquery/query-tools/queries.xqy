@@ -66,7 +66,7 @@ declare function local:request($request-status as element(ss:request-status)) as
 lib-view:create-bootstrap-page("MarkLogic Tools: Running Queries",
 element div {
 attribute class {"container"},
-    lib-view:page-header("Long running queries", "TODO", " "),
+    lib-view:page-header("Long running queries", "Cluster-wide", " "),
     element div {attribute class {"row"},
         element h3 {"Cluster application server status @ ",fn:current-dateTime()},
         element table {attribute class {"table table-bordered table-striped"},
