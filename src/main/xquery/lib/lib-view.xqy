@@ -40,6 +40,7 @@ declare function lib-view:create-bootstrap-page($title as xs:string, $content as
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.js">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/mode/xquery/xquery.min.js">{" "}</script>,
     <script src="http://d3js.org/d3.v3.min.js">{" "}</script>,
+    <script src="/assets/js/d3-vis.js">{" "}</script>,
     <script src="/assets/js/logtail.js">{" "}</script>,
     <script src="/assets/js/init.js">{" "}</script>
 };
