@@ -15,8 +15,7 @@ element div {
     lib-view:page-header("Term Key Lookup", $common:DATABASE,  lib-view:database-select()),
     element div {
         attribute class {"row"},
-        element h3 {"Term Key:"},
-        element p {$KEY},
+        element h3 {"Term Key: ", element small {$KEY}},
         
         element h3 {"Reverse Lookup of Search Term (and indexes) from Term Key:"},
         element pre {element code {xdmp:quote(common:lookup-term-from-key($KEY cast as xs:unsignedLong))}},
