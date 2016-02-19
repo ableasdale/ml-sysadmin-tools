@@ -2,7 +2,7 @@ xquery version "1.0-ml";
 
 module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view";
 
-declare function lib-view:create-bootstrap-page($title as xs:string, $content as element()) {
+declare function lib-view:create-bootstrap-page($title as xs:string, $content as element(div)) {
     xdmp:log("Creating page: "|| $title),
     xdmp:set-response-content-type("text/html; charset=utf-8"),
     '<!DOCTYPE html>',
@@ -79,6 +79,27 @@ declare function lib-view:navigation() as element(div) {
             </div>
         </div>
     </div>
+};
+
+declare function lib-view:database-select() as element(div) {
+    element div {attribute class {"dropdown"},
+        element button {
+            attribute class {"btn btn-default dropdown-toggle pull-right"},
+            attribute type {"button"},
+            attribute id {"database-select"},
+            attribute data-toggle {"dropdown"},
+            attribute aria-haspopup {"true"},
+            attribute aria-expanded {"true"},
+            "Choose database ", element span {attribute class {"caret"}}
+        },
+        element ul {
+            attribute class {"dropdown-menu"}, attribute aria-labelledby {"database-select"},
+            element li {attribute class {"dropdown-header"}, "Available Databases:"},
+            for $x in xdmp:database-name(xdmp:databases())
+            return
+                element li {element a {attribute href {concat("?db=", $x)}, $x}}
+        }
+    }
 };
 
 declare function lib-view:page-header($title as xs:string, $subtitle as xs:string, $dropdown as item()?) as element(div)+ {

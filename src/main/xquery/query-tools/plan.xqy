@@ -3,13 +3,14 @@ xquery version "1.0-ml";
 import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "/lib/lib-view.xqy";
 import module namespace common = "http://help.marklogic.com/common" at "/lib/common.xqy";
 
+declare variable $DATABASE := xdmp:get-request-field("db", xdmp:database-name(xdmp:database()));
 declare variable $QUERY := cts:and-query((cts:word-query("XDMP"), cts:element-value-query(xs:QName("random"), "7447420811867039164")));
 
 (: Module main :)
 lib-view:create-bootstrap-page("MarkLogic Tools: Plan Explorer",
     element div {
         attribute class {"container"},
-        lib-view:page-header("Plan Lookup", "TODO", " "),
+        lib-view:page-header("XDMP Plan Lookup", $DATABASE, lib-view:database-select()),
         element div {
             attribute class {"row"},
             element h3 {"Your cts:query"},
