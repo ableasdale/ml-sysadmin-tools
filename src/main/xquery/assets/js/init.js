@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+    /* ErrorLog tail */
     var url = "/get-error-log.xqy?filename=";
     var poll = 3000; /* 2s */
 
@@ -7,7 +8,6 @@ $(document).ready(function() {
     if($("pre#data").length > 0){
 
        // console.log($("pre#data").value);
-
         //var file = SelectText($('pre')[0]); // $("pre[id='data']").val();
         // console.log(file);
         // console.dir($("pre#data")[0].innerText);
@@ -19,9 +19,11 @@ $(document).ready(function() {
         window.setInterval(function(){
             get_log(url+file)
         }, poll);
-        // setTimeout(get_log(url+file), poll);
-        // get_log(url + file);
-
     }
+
+    var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+        lineNumbers: true,
+        lineWrapping: true
+    });
 });
 

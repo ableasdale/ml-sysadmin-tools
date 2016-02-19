@@ -13,7 +13,7 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Plan Explorer",
         element div {
             attribute class {"row"},
             element h3 {"Your cts:query"},
-            element textarea {text { $QUERY } },
+            element textarea {attribute id {"editor"}, text { $QUERY } },
             element h3 {"CTS XML Serialisation of Query"},
             element pre {element code {xdmp:quote(element q {$QUERY}/node())} },
             element h3 {"MarkLogic Plan"},
