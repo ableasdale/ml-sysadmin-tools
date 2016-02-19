@@ -10,7 +10,7 @@ $(document).ready(function() {
         // console.log(db);
 
         // load the external data
-        d3.json("http://localhost:8004/ws/forest-layout.xqy?db=" + db, function (error, treeData) {
+        d3.json("/ws/forest-layout.xqy?db=" + db, function (error, treeData) {
             root = treeData;
             update(root);
             root.x0 = height / 2;
