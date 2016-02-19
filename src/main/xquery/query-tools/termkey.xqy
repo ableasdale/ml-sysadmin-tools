@@ -7,13 +7,12 @@ declare namespace qry = "http://marklogic.com/cts/query";
 
 declare variable $KEY as xs:string := xdmp:get-request-field("k", xs:string((xdmp:plan(/doc())//qry:key)[1]));
 
-
 (: Module main :)
 
 lib-view:create-bootstrap-page("MarkLogic Tools: Term Key Explorer",
 element div {
     attribute class {"container"},
-    lib-view:page-header("Term Key Lookup", "TODO", " "),
+    lib-view:page-header("Term Key Lookup", $common:DATABASE,  lib-view:database-select()),
     element div {
         attribute class {"row"},
         element h3 {"Term Key:"},

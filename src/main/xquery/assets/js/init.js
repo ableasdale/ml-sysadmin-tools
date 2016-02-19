@@ -21,9 +21,12 @@ $(document).ready(function() {
         }, poll);
     }
 
-    var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
-        lineNumbers: true,
-        lineWrapping: true
-    });
+    /* CodeMirror */
+    if($("textarea#editor").length > 0) {
+        CodeMirror.fromTextArea(document.getElementById("editor"), {
+            lineNumbers: true,
+            lineWrapping: true
+        });
+    }
 });
 

@@ -5,6 +5,9 @@ declare namespace qry = "http://marklogic.com/cts/query";
 declare namespace sec = "http://marklogic.com/xdmp/security";
 
 declare variable $PATHSEP := if (xdmp:platform() = "winnt") then "\\" else "/";
+declare variable $DATABASE := xdmp:get-request-field("db", xdmp:database-name(xdmp:database()));
+declare variable $FOREST-COUNTS-REBALANCER := xdmp:forest-counts(xdmp:database-forests(xdmp:database($DATABASE)), (), ("preview-rebalancer"));
+
 
 declare function common:get-log-directory() {
     fn:concat(xdmp:data-directory(), $PATHSEP, "Logs", $PATHSEP)
