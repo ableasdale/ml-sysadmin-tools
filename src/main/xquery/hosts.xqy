@@ -10,7 +10,7 @@ element div {
 attribute class {"container"},
 lib-view:page-header("Security Mappings", "Security Database", " "),
 element div {attribute class {"row"},
-    element div {attribute id {"host-info"}, "host info..."}
+    element div {attribute id {"host-info"}}
 }
 
 })
