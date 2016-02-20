@@ -61,8 +61,16 @@ declare function lib-view:navigation() as element(div) {
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <!-- TODO - add class="active" to active page -->
-                    <li><a href="/">Dashboard</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dashboard <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/">Overview</a></li>
+                            <li><a href="/hosts.xqy">Hosts</a></li>
+                            <li><a href="/">Forests</a></li>
+                        </ul>
+                    </li>
                     <li><a href="/security.xqy">Security</a></li>
+                    
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">

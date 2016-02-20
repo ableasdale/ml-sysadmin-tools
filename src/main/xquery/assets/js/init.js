@@ -66,7 +66,7 @@ $(document).ready(function () {
         node1.transition().duration(750).call(arcTween, 1 * τ);
         node2.transition().duration(750).call(arcTween, .666 * τ);    // .333 * τ //Math.random() * τ
         node3.transition().duration(750).call(arcTween, .333 * τ);
-    }, 1500);
+    }, 1000);
 
 
 // text
@@ -77,7 +77,7 @@ $(document).ready(function () {
  http://www.brightpointinc.com/download/radial-progress-source-code/
  http://bl.ocks.org/mbostock/1846692
  https://bost.ocks.org/mike/selection/
-
+ https://bl.ocks.org/mbostock/99f0a6533f7c949cf8b8
 
  */
 //Creating an Arc path
@@ -190,8 +190,7 @@ $(document).ready(function () {
         // console.log(file);
         // console.dir($("pre#data")[0].innerText);
         var file = $("pre#data")[0].innerText;  //$("#data").textContent;
-        console.log("file: " + url + file);
-        console.log("should init once...");
+//        console.log("file: " + url + file);
         get_log(url + file);
 
         window.setInterval(function () {

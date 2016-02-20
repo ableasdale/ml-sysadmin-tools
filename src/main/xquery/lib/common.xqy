@@ -4,10 +4,28 @@ module namespace common = "http://help.marklogic.com/common";
 declare namespace qry = "http://marklogic.com/cts/query";
 declare namespace sec = "http://marklogic.com/xdmp/security";
 
+declare variable $IDS := map:map();
+declare variable $FSTAT := map:map();
+declare variable $FCOUNTS := map:map();
+declare variable $HOSTS := map:map();
+declare variable $GROUPS := map:map();
+declare variable $HOSTIDS := xdmp:hosts();
+
 declare variable $PATHSEP := if (xdmp:platform() = "winnt") then "\\" else "/";
 declare variable $DATABASE := xdmp:get-request-field("db", xdmp:database-name(xdmp:database()));
 declare variable $FOREST-COUNTS-REBALANCER := xdmp:forest-counts(xdmp:database-forests(xdmp:database($DATABASE)), (), ("preview-rebalancer"));
 
+
+declare function common:format($number) {
+    fn:format-number($number,"#,##0.00")
+};
+
+declare function common:ratio($hits, $misses) {
+    if (fn:sum($hits) gt 0)
+    then common:format(100 * fn:sum($hits) div
+            (fn:sum($hits) + fn:sum($misses)))
+    else 0
+};
 
 declare function common:get-log-directory() {
     fn:concat(xdmp:data-directory(), $PATHSEP, "Logs", $PATHSEP)
