@@ -66,6 +66,7 @@ declare function lib-view:navigation() as element(div) {
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/">Overview</a></li>
                             <li><a href="/hosts.xqy">Hosts</a></li>
+                            <li><a href="/servers.xqy">Servers</a></li>
                             <li><a href="/">Forests</a></li>
                         </ul>
                     </li>
