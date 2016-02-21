@@ -44,7 +44,6 @@ $(document).ready(function () {
         });
 
     function doUpdate(myData) {
-        console.log("doing things to" + myData);
         svg.datum(myData).selectAll("path")
             .data(partition.nodes)
             .enter().append("path")
@@ -62,12 +61,13 @@ $(document).ready(function () {
             .style("fill-rule", "evenodd");
     }
 
-    /* This is a bit funky right now - I have to load the JSON and call this twice (first in when we get the data - which fails)
-     in order for it to work - TODO - figure out why and fix it! */
-    var path = doUpdate(otherJson);
+    /* This is a bit funky right now - I have to load the JSON and call this twice (first is below and the second is when we get the data
+     if we don't have both, nothing is displayed).
+     in order for it to work - TODO - figure out how to do this properly and fix it! */
+    var path = doUpdate(jsonData);
 
     /* end current code for default.xqy */
-
+    
 
     /* arc tween for host page ::  hosts.xqy  */
     var width = 200, height = 240, τ = 2 * Math.PI; // http://tauday.com/tau-manifesto

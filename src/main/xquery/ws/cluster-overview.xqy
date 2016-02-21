@@ -53,7 +53,9 @@ declare variable $test-json as xs:string := '{
 		}]
 	}, {
 		"name": "1950",
+		"label": "I want to see this",
 		"children": [{
+			"label" : "DoesThisDisplay?",
 			"name": "Buddhism",
 			"children": [{
 				"year": "1950",
