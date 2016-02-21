@@ -5,108 +5,15 @@ $(document).ready(function () {
     /* current code for default.xqy */
     //http://joshbranchaud.com/blog/2014/06/06/Getting-Started-With-D3js-In-121-Seconds.html
     // http://projects.delimited.io/experiments/csv-json/
-
     var width = 960, height = 700, radius = 300;
+    var jsonData;
+    d3.json("/ws/cluster-overview.xqy", function (error, data) {
+        //if (error) return console.warn(error);
+        jsonData = data;
+        doUpdate(data);
+    });
 
-    // DUMMY Json to get the visual looking kind of right - this will be replaced with a /ws/ call soon
-    var dummyJson = {
-        "children": [{
-            "name": "1945",
-            "children": [{
-                "name": "Buddhism",
-                "children": [{
-                    "year": "1945",
-                    "cat": "Buddhism",
-                    "type": "Other",
-                    "pop": 116237936
-                }]
-            }, {
-                "name": "Christianity",
-                "children": [{
-                    "year": "1945",
-                    "cat": "Christianity",
-                    "type": "Anglican",
-                    "pop": 36955033
-                }, {
-                    "year": "1945",
-                    "cat": "Christianity",
-                    "type": "Mahayana",
-                    "pop": 160887585
-                }]
-            }, {
-                "name": "Islam",
-                "children": [{
-                    "year": "1945",
-                    "cat": "Islam",
-                    "type": "Ibadhi",
-                    "pop": 62273219
-                }, {
-                    "year": "1945",
-                    "cat": "Islam",
-                    "type": "Sunni",
-                    "pop": 49050320
-                }]
-            }, {
-                "name": "Judaism",
-                "children": [{
-                    "year": "1945",
-                    "cat": "Judaism",
-                    "type": "Conservative",
-                    "pop": 1426350
-                }, {
-                    "year": "1945",
-                    "cat": "Judaism",
-                    "type": "Reform",
-                    "pop": 1929388
-                }]
-            }]
-        }, {
-            "name": "1950",
-            "children": [{
-                "name": "Buddhism",
-                "children": [{
-                    "year": "1950",
-                    "cat": "Buddhism",
-                    "type": "Other",
-                    "pop": 144980765
-                }, {
-                    "year": "1950",
-                    "cat": "Buddhism",
-                    "type": "Theravada",
-                    "pop": 14031137
-                }]
-            }, {
-                "name": "Christianity",
-                "children": [{
-                    "year": "1950",
-                    "cat": "Christianity",
-                    "type": "Anglican",
-                    "pop": 38307544
-                }, {
-                    "year": "1950",
-                    "cat": "Christianity",
-                    "type": "Mahayana",
-                    "pop": 133301043
-                }]
-            }, {
-                "name": "Islam",
-                "children": [{
-                    "year": "1950",
-                    "cat": "Islam",
-                    "type": "Alawite",
-                    "pop": 387994
-                }, {
-                    "year": "1950",
-                    "cat": "Islam",
-                    "type": "Sunni",
-                    "pop": 56921304
-                }]
-            }]
-        }]
-    };
-
-    var color = d3.scale.ordinal().range(['#74E600','#26527C','#61D7A4','#6CAC2B','#408AD2','#218359','#36D792','#679ED2','#B0F26D','#4B9500','#98F23D','#04396C','#007241']);
-
+    var color = d3.scale.ordinal().range(['#74E600', '#26527C', '#61D7A4', '#6CAC2B', '#408AD2', '#218359', '#36D792', '#679ED2', '#B0F26D', '#4B9500', '#98F23D', '#04396C', '#007241']);
     // debug console.dir(d3.select("div#overview").append('p').text('DO we ever see this text?'));
 
     var svg = d3.select("div#overview").append("svg")
@@ -118,28 +25,48 @@ $(document).ready(function () {
     var partition = d3.layout.partition()
         .sort(null)
         .size([2 * Math.PI, radius * radius])
-        .value(function(d) { return d.pop; });
+        .value(function (d) {
+            return d.pop;
+        });
 
     var arc = d3.svg.arc()
-        .startAngle(function(d) { return d.x; })
-        .endAngle(function(d) { return d.x + d.dx; })
-        .innerRadius(function(d) { return Math.sqrt(d.y); })
-        .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
+        .startAngle(function (d) {
+            return d.x;
+        })
+        .endAngle(function (d) {
+            return d.x + d.dx;
+        })
+        .innerRadius(function (d) {
+            return Math.sqrt(d.y);
+        })
+        .outerRadius(function (d) {
+            return Math.sqrt(d.y + d.dy);
+        });
 
-
-        var path = svg.datum(dummyJson).selectAll("path")
+    function doUpdate(myData) {
+        console.log("doing things to" + myData);
+        svg.datum(myData).selectAll("path")
             .data(partition.nodes)
             .enter().append("path")
-            .attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner ring
+            .attr("display", function (d) {
+                return d.depth ? null : "none";
+            }) // hide inner ring
             .attr("d", arc)
-            .attr("class", function(d) { return (d.children ? d : d.parent).name; })
+            .attr("class", function (d) {
+                return (d.children ? d : d.parent).name;
+            })
             .style("stroke", "#fff")
-            .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
+            .style("fill", function (d) {
+                return color((d.children ? d : d.parent).name);
+            })
             .style("fill-rule", "evenodd");
+    }
 
+    /* This is a bit funky right now - I have to load the JSON and call this twice (first in when we get the data - which fails)
+     in order for it to work - TODO - figure out why and fix it! */
+    var path = doUpdate(otherJson);
 
     /* end current code for default.xqy */
-
 
 
     /* arc tween for host page ::  hosts.xqy  */
@@ -164,16 +91,16 @@ $(document).ready(function () {
 
 
 // text
-/*
- http://www.visualcinnamon.com/2015/09/placing-text-on-arcs.html
- http://bl.ocks.org/mbostock/2565344
- http://bl.ocks.org/mbostock/5100636 - like the above example
- http://www.brightpointinc.com/download/radial-progress-source-code/
- http://bl.ocks.org/mbostock/1846692
- https://bost.ocks.org/mike/selection/
- https://bl.ocks.org/mbostock/99f0a6533f7c949cf8b8
+    /*
+     http://www.visualcinnamon.com/2015/09/placing-text-on-arcs.html
+     http://bl.ocks.org/mbostock/2565344
+     http://bl.ocks.org/mbostock/5100636 - like the above example
+     http://www.brightpointinc.com/download/radial-progress-source-code/
+     http://bl.ocks.org/mbostock/1846692
+     https://bost.ocks.org/mike/selection/
+     https://bl.ocks.org/mbostock/99f0a6533f7c949cf8b8
 
- */
+     */
 //Creating an Arc path
     // M start-x, start-y A radius-x, radius-y, x-axis-rotation, large-arc-flag, sweep-flag, end-x, end-y
     //Create an SVG path
@@ -183,14 +110,14 @@ $(document).ready(function () {
         // .attr("d", " M -100,0 A 100,100 0 0,1 100,0") // perfect arc
         .attr("d", "M -105,-5 A 100,100 0 0,1 105,0") //Notation for an SVG path, from bl.ocks.org/mbostock/2565344
         .style("fill", "none");
-        // if you want to see the line
-        //.style("stroke", "#AAAAAA");
+    // if you want to see the line
+    //.style("stroke", "#AAAAAA");
 
 //Create an SVG text element and append a textPath element
     svg.append("text")
         .append("textPath") //append a textPath to the text element
         .attr("xlink:href", "#wavy") //place the ID of the path here
-        .style("text-anchor","middle") //place the text halfway on the arc
+        .style("text-anchor", "middle") //place the text halfway on the arc
         .attr("startOffset", "50%")
         .text("3 hosts in current cluster");
 
@@ -270,9 +197,6 @@ $(document).ready(function () {
         });
     }
     // ************** End Generate the D3 tree diagram	 *****************
-
-
-
 
     /* ErrorLog tail */
     var url = "/get-error-log.xqy?filename=";
