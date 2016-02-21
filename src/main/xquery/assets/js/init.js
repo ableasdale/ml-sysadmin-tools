@@ -5,6 +5,12 @@ $(document).ready(function () {
     /* current code for default.xqy */
     //http://joshbranchaud.com/blog/2014/06/06/Getting-Started-With-D3js-In-121-Seconds.html
     // http://projects.delimited.io/experiments/csv-json/
+    // https://bl.ocks.org/mbostock/3151318
+    // http://bl.ocks.org/mbostock/3151228
+    // http://bl.ocks.org/dbuezas/9306799
+    // http://jsfiddle.net/5PENv/
+    // http://bl.ocks.org/Guerino1/2295263
+
     var width = 960, height = 700, radius = 300;
     var jsonData;
     d3.json("/ws/cluster-overview.xqy", function (error, data) {
@@ -51,10 +57,26 @@ $(document).ready(function () {
                 return d.depth ? null : "none";
             }) // hide inner ring
             .attr("d", arc)
+            /*.append("text")
+            .attr("x", 8)
+            .attr("dy", 28)
+            .text("a") */
             .attr("class", function (d) {
                 return (d.children ? d : d.parent).name;
             })
-            .style("stroke", "#fff")
+            .on("mouseover", function (d) {
+                d3.select("#tooltip")
+                    .style("left", d3.event.pageX + "px")
+                    .style("top", d3.event.pageY + "px")
+                    .classed("hidden", false); })
+                    //.select("#value")
+                    //.text(d.value)})
+            .on("mouseout", function () {
+                // Hide the tooltip
+                d3.select("#tooltip")
+                    .classed("hidden", true);
+            })
+            .style("stroke", "#ddd")
             .style("fill", function (d) {
                 return color((d.children ? d : d.parent).name);
             })
@@ -67,7 +89,7 @@ $(document).ready(function () {
     var path = doUpdate(jsonData);
 
     /* end current code for default.xqy */
-    
+
 
     /* arc tween for host page ::  hosts.xqy  */
     var width = 200, height = 240, τ = 2 * Math.PI; // http://tauday.com/tau-manifesto
