@@ -12,18 +12,19 @@ declare namespace h = "http://marklogic.com/xdmp/hosts";
 declare namespace g = "http://marklogic.com/xdmp/group";
 declare namespace f = "http://marklogic.com/xdmp/status/forest";
 
-
+(: TODO - decide whether this is worth doing?
 declare variable $IDS := map:map();
 declare variable $FSTAT := map:map();
 declare variable $FCOUNTS := map:map();
 declare variable $HOSTS := map:map();
 declare variable $GROUPS := map:map();
 declare variable $HOSTIDS := xdmp:hosts();
+:)
 
 declare variable $PATHSEP := if (xdmp:platform() = "winnt") then "\\" else "/";
 declare variable $DATABASE := xdmp:get-request-field("db", xdmp:database-name(xdmp:database()));
 declare variable $FOREST-COUNTS-REBALANCER := xdmp:forest-counts(xdmp:database-forests(xdmp:database($DATABASE)), (), ("preview-rebalancer"));
-
+declare variable $DATABASES  as element(db:database)+ := $ses:databases.xml/node();
 
 declare function common:format($number) {
     fn:format-number($number,"#,##0.00")
@@ -46,7 +47,7 @@ declare function common:get-log-directory() {
 declare function common:database-forest-composition() {
     element div {
         attribute class {"row"},
-        for $db in $ses:databases.xml/node()
+        for $db in $DATABASES
         let $db-name := $db/db:database-name/fn:string(.)
         let $indexes := fn:string-join($db/*[fn:string(.) = "true"]/fn:local-name(.), ",")
         let $fragments := 0

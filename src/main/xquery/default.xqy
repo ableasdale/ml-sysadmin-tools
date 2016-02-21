@@ -18,7 +18,6 @@ declare function local:database-forest-preview() as element(div) {
 };
 
 
-
 (:~ 
 
 :)
