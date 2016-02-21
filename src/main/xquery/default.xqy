@@ -10,5 +10,9 @@ element div {
 attribute class {"container"},
 lib-view:page-header("MarkLogic Cluster", "Overview", " "),
 element div {attribute class {"row"},
-element p {"TODO - visual stats here - tallies and the like.."}
-}})
+    element div {
+        attribute id {"overview"},
+        "TODO - visual stats here - tallies and the like.."
+    }
+}
+})
