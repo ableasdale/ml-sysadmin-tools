@@ -15,9 +15,8 @@ element div {attribute class {"row"},
         attribute id {"overview"}
     },
 <div id="tooltip" class="hidden">
-<p><strong>Important Label Heading</strong>
-</p>
-<p><span id="value">100</span>%</p>
+    <h4><span id="name">A</span></h4>
+    <p><span id="value">B</span></p>
 </div>
 }
 })

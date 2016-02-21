@@ -68,9 +68,12 @@ $(document).ready(function () {
                 d3.select("#tooltip")
                     .style("left", d3.event.pageX + "px")
                     .style("top", d3.event.pageY + "px")
-                    .classed("hidden", false); })
-                    //.select("#value")
-                    //.text(d.value)})
+                    .classed("hidden", false)
+                    .select("#value")
+                    .text(d.value)
+                    .select("#name")
+                    .text(d.name)
+            })
             .on("mouseout", function () {
                 // Hide the tooltip
                 d3.select("#tooltip")
