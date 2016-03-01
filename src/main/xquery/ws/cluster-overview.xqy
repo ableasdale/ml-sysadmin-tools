@@ -163,13 +163,14 @@ for $i in xdmp:host-forests(xdmp:host())
 let $fc := xdmp:forest-counts($i)
 return object-node {
     "name" : text {xdmp:forest-name($i)},
-
-    "children" : array-node { object-node {
-        "pop"  : text { fn:data($fc/f:document-count) },
-        "active"  : text { fn:data(sum($fc//f:active-fragment-count)) },
-        "nascent" : text { fn:data(sum($fc//f:nascent-fragment-count)) },
-        "deleted" : text { fn:data(sum($fc//f:deleted-fragment-count)) }
-    }}
+    "children" : array-node {
+        object-node {
+            "documents"  : text { fn:data($fc/f:document-count) },
+            "active"  : text { fn:data(sum($fc//f:active-fragment-count)) },
+            "nascent" : text { fn:data(sum($fc//f:nascent-fragment-count)) },
+            "deleted" : text { fn:data(sum($fc//f:deleted-fragment-count)) }
+        }
+    }
 (: "parent" : text {$common:DATABASE} :)
 }
 };

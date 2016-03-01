@@ -32,7 +32,7 @@ $(document).ready(function () {
         .sort(null)
         .size([2 * Math.PI, radius * radius])
         .value(function (d) {
-            return d.pop;
+            return d.documents;
         });
 
     var arc = d3.svg.arc()
