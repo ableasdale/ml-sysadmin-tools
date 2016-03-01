@@ -69,14 +69,20 @@ $(document).ready(function () {
                     .style("left", d3.event.pageX + "px")
                     .style("top", d3.event.pageY + "px")
                     .classed("hidden", false)
-                    .select("#value")
-                    .text(d.value)
-                    .select("#name")
-                    .text(d.name)
+                    .append("h4").text(d.name)
+                    .append("p").text(d.value)
+
+                    /*
+                    .select("h4#ml_label")
+                    .text("test"+ d.name)
+
+                    .select("small#value")
+                    .text(d.value + d.name)*/
             })
             .on("mouseout", function () {
                 // Hide the tooltip
                 d3.select("#tooltip")
+                    .html("")
                     .classed("hidden", true);
             })
             .style("stroke", "#ddd")

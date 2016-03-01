@@ -14,9 +14,6 @@ element div {attribute class {"row"},
     element div {
         attribute id {"overview"}
     },
-<div id="tooltip" class="hidden">
-    <h4><span id="name">A</span></h4>
-    <p><span id="value">B</span></p>
-</div>
+<div id="tooltip" class="hidden"></div>
 }
 })
