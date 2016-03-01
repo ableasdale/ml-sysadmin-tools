@@ -158,11 +158,18 @@ declare variable $test-json as xs:string := '{
 }';
 
 
-declare function local:host-get-forest-details($hostname as xs:string){
+declare function local:host-get-forest-details($hostname as xs:string) {
 for $i in xdmp:host-forests(xdmp:host())
+let $fc := xdmp:forest-counts($i)
 return object-node {
     "name" : text {xdmp:forest-name($i)},
-    "pop"  : text {fn:data(xdmp:forest-counts($i, "document-count")/f:document-count)}
+
+    "children" : array-node { object-node {
+        "pop"  : text { fn:data($fc/f:document-count) },
+        "active"  : text { fn:data(sum($fc//f:active-fragment-count)) },
+        "nascent" : text { fn:data(sum($fc//f:nascent-fragment-count)) },
+        "deleted" : text { fn:data(sum($fc//f:deleted-fragment-count)) }
+    }}
 (: "parent" : text {$common:DATABASE} :)
 }
 };
@@ -187,3 +194,21 @@ object-node {
 
 (: To return test data ^ just do the following
 xdmp:set-response-content-type("application/json"), xdmp:unquote($small-test-json) :)
+
+(:
+/*
+
+
+{"children":[{
+    "name":"localhost.localdomain",
+    "children":[{
+        "name":"Triggers",
+        "children":{"pop":"0", "foo":"bar"}}, {"name":"App-Services", "children":{"pop":"3", "foo":"bar"}}, {"name":"Last-Login", "children":{"pop":"0", "foo":"bar"}}, {"name":"Modules", "children":{"pop":"0", "foo":"bar"}}, {"name":"Fab", "children":{"pop":"0", "foo":"bar"}}, {"name":"Extensions", "children":{"pop":"0", "foo":"bar"}}, {"name":"Schemas", "children":{"pop":"0", "foo":"bar"}}, {"name":"Meters", "children":{"pop":"488", "foo":"bar"}}, {"name":"Documents", "children":{"pop":"0", "foo":"bar"}}, {"name":"Security", "children":{"pop":"1221", "foo":"bar"}}]}]}
+
+
+{"children":[{
+    "name":"localhost.localdomain",
+    "children":[{
+        "name":"Triggers", "pop":"0"}, {"name":"App-Services", "pop":"3"}, {"name":"Last-Login", "pop":"0"}, {"name":"Modules", "pop":"0"}, {"name":"Fab", "pop":"0"}, {"name":"Extensions", "pop":"0"}, {"name":"Schemas", "pop":"0"}, {"name":"Meters", "pop":"307"}, {"name":"Documents", "pop":"0"}, {"name":"Security", "pop":"1221"}]}]}
+*/
+:)
