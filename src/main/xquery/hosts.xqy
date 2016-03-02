@@ -51,7 +51,6 @@ declare function local:hosts() {
 			element td {count($forests)},
 			element td {common:format(fn:sum($forests//f:disk-size) div 1024) },
 			element td {common:format(fn:sum($forests//f:memory-size) div 1024) },
-       
 
 			element td {fn:data($status/hs:version)},
 			element td {fn:data($status/hs:architecture)},
@@ -77,7 +76,7 @@ attribute class {"container"},
 		element h4 {"Current Timestamp time: ", element small{xdmp:timestamp-to-wallclock(xdmp:request-timestamp())}},
 	    local:hosts()
 	}
-})
+}, <script src="/assets/js/hosts.js">{" "}</script>)
 
 
 

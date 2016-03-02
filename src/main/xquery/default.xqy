@@ -1,6 +1,6 @@
 xquery version "1.0-ml";
 
-import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "/lib/lib-view.xqy";
+import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "lib/lib-view.xqy";
 import module namespace common = "http://help.marklogic.com/common" at "/lib/common.xqy";
 
 
@@ -16,4 +16,4 @@ element div {attribute class {"row"},
     },
 <div id="tooltip" class="hidden"></div>
 }
-})
+},<script src="/assets/js/cluster.js">{" "}</script>)

@@ -65,5 +65,6 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Rebalancer preview",
         local:database-forest-preview(),
         common:database-forest-composition(),
         local:rebalancer-preview()
-    }
+    },
+<script src="/assets/js/forests.js">{" "}</script>
 )

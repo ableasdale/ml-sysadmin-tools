@@ -35,7 +35,9 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Log Viewer",
         lib-view:page-header("Log Viewer", $LOG, local:file-select()),
         element div {attribute class {"row"},
             element pre {attribute id {"data"}, attribute style {"height:30em;"},$LOG}
-    }})
+    }},
+<script src="/assets/js/logs.js">{" "}</script>
+)
 
 (:
 ,lib-view:get-log-js()

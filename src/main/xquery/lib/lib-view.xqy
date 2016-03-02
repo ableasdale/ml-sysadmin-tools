@@ -2,7 +2,11 @@ xquery version "1.0-ml";
 
 module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view";
 
-declare function lib-view:create-bootstrap-page($title as xs:string, $content as element(div)) {
+declare function lib-view:create-bootstrap-page($title as xs:string, $content as element(div)){
+    lib-view:create-bootstrap-page($title, $content, ())
+};
+
+declare function lib-view:create-bootstrap-page($title as xs:string, $content as element(div), $additional-resource as item()?) {
     xdmp:log("Creating page: "|| $title),
     xdmp:set-response-content-type("text/html; charset=utf-8"),
     '<!DOCTYPE html>',
@@ -40,11 +44,8 @@ declare function lib-view:create-bootstrap-page($title as xs:string, $content as
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.js">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/mode/xquery/xquery.min.js">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.js">{" "}</script>,
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js">{" "}</script>,
-    <script src="/assets/js/d3-vis.js">{" "}</script>,
-    <script src="/assets/js/logtail.js">{" "}</script>,
-    <script src="/assets/js/init.js">{" "}</script>
+    $additional-resource
 };
 
 

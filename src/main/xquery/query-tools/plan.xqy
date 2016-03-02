@@ -22,4 +22,6 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Plan Explorer",
             for $i in common:get-term-keys($QUERY) return element p {element a {attribute href {concat("/query-tools/termkey.xqy?k=",$i)}, $i}, " Matching fragment estimate:", common:get-estimate-for-term-key($i)},
             element p {"TODO"}
         }
-    })
+    },
+<script src="/assets/js/codemirror.js">{" "}</script>
+)

@@ -1,9 +1,20 @@
+/**
+ * Created by ableasdale on 02/03/2016.
+ */
+
+/**
+ * JS startup code for ErrorLog resource
+ */
+
 /* Copyright (c) 2012: Daniel Richman. License: GNU GPL 3 */
 /* Additional features: Priyesh Patel                     */
 
 var dataelem = "#data";
 var pausetoggle = "#pause";
 var scrollelems = ["html", "body"];
+var url = "/get-error-log.xqy?filename=";
+var poll = 3000;
+/* 2s */
 
 var fix_rn = true;
 var load = 30 * 1024; /* 30KB */
@@ -155,3 +166,24 @@ function error(what) {
     scroll(0);
     return false;
 }
+
+
+/* ErrorLog tail */
+
+$(document).ready(function () {
+    if ($("pre#data").length > 0) {
+
+        // console.log($("pre#data").value);
+        //var file = SelectText($('pre')[0]); // $("pre[id='data']").val();
+        // console.log(file);
+        // console.dir($("pre#data")[0].innerText);
+        var file = $("pre#data")[0].innerText;  //$("#data").textContent;
+//        console.log("file: " + url + file);
+        get_log(url + file);
+
+        window.setInterval(function () {
+            get_log(url + file)
+        }, poll);
+    }
+});
+/* End ErrorLog Tail */
