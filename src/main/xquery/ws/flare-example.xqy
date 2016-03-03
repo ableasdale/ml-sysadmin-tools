@@ -387,23 +387,23 @@ declare variable $test-json as xs:string := '{
 
 (: xdmp:set-response-content-type("application/json"), xdmp:unquote($test-json) :)
 
+declare function local:forest-stats($forestid as xs:unsignedLong) {
+    array-node {
+        let $x := xdmp:forest-counts($forestid)
+        return
+            object-node {"name": text{"Deleted Fragments"}, "size": text {"100"} },
+            object-node {"name": text{"Active Fragments"}, "size": text {"200"} }
+    }
+};
+
 declare function local:database-forests($dbid as xs:unsignedLong) {
     array-node {
         for $i in xdmp:database-forests($dbid)
         order by xdmp:forest-name($i)
         return object-node {
-            "name" : text{xdmp:forest-name($i)}
-
+            "name" : text{xdmp:forest-name($i)},
+            "children" : local:forest-stats($i)
         }
-(:
-object-node {
-"name": text{"forest"},
-"size" : text{"2490"}
-},
-object-node {
-"name": text{"forest2"},
-"size" : text{"2491"}
-} :)
     }
 };
 
