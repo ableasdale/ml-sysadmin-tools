@@ -1,5 +1,7 @@
 
 import module namespace common = "http://help.marklogic.com/common" at "/lib/common.xqy";
+declare namespace f = "http://marklogic.com/xdmp/status/forest";
+
 
 (: http://bl.ocks.org/mbostock/4063550 :)
 
@@ -390,9 +392,12 @@ declare variable $test-json as xs:string := '{
 declare function local:forest-stats($forestid as xs:unsignedLong) {
     array-node {
         let $x := xdmp:forest-counts($forestid)
-        return
-            object-node {"name": text{"Deleted Fragments"}, "size": text {"100"} },
-            object-node {"name": text{"Active Fragments"}, "size": text {"200"} }
+        return (
+            object-node {"name": text{"ID: " || fn:data($x/f:forest-id) } },
+            object-node {"name": text{"Documents: " || fn:data($x/f:document-count) } },
+            object-node {"name": text{"Stands: " || fn:count($x/f:stands-counts/*) } },
+            object-node {"name": text{"A: " || sum($x/f:stands-counts/f:stand-counts/f:active-fragment-count) || " D: " || sum($x/f:stands-counts/f:stand-counts/f:deleted-fragment-count) || " N: " || sum($x/f:stands-counts/f:stand-counts/f:nascent-fragment-count) }}
+        )
     }
 };
 
