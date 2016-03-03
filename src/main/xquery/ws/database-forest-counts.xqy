@@ -5,7 +5,7 @@ declare namespace f = "http://marklogic.com/xdmp/status/forest";
 
 (: http://bl.ocks.org/mbostock/4063550 :)
 
-
+(: Example JSON output - not used - just here for demonstration :)
 declare variable $test-json as xs:string := '{
  "name": "cluster",
  "children": [
@@ -387,7 +387,7 @@ declare variable $test-json as xs:string := '{
  ]
 }';
 
-(: xdmp:set-response-content-type("application/json"), xdmp:unquote($test-json) :)
+(: TO USE TEST DATA: xdmp:set-response-content-type("application/json"), xdmp:unquote($test-json) :)
 
 declare function local:forest-stats($forestid as xs:unsignedLong) {
     array-node {

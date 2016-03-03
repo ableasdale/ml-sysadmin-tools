@@ -3,7 +3,7 @@
  */
 
 
-var diameter = 960;
+var diameter = 1170;
 
 var tree = d3.layout.tree()
     .size([360, diameter / 2 - 120])
@@ -12,13 +12,13 @@ var tree = d3.layout.tree()
 var diagonal = d3.svg.diagonal.radial()
     .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("div#overview").append("svg")
     .attr("width", diameter)
-    .attr("height", diameter - 150)
+    .attr("height", diameter)
     .append("g")
     .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
-d3.json("/ws/flare-example.xqy", function(error, root) {
+d3.json("/ws/database-forest-counts.xqy", function(error, root) {
     if (error) throw error;
 
     var nodes = tree.nodes(root),

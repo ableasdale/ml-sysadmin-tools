@@ -8,9 +8,9 @@ element div {
 attribute class {"container"},
 lib-view:page-header("MarkLogic Cluster", "Overview", " "),
 element div {attribute class {"row"},
-element h3 {"D3 Flare Diagram Example"},
+element h3 {"Your data at a glance"},
 element div {
 attribute id {"overview"}
 }
 }
-},<script src="/assets/js/flare.js">{" "}</script>)
+},<script src="/assets/js/data.js">{" "}</script>)
