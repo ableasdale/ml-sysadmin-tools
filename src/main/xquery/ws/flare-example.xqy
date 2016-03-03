@@ -1,9 +1,11 @@
 
+import module namespace common = "http://help.marklogic.com/common" at "/lib/common.xqy";
+
 (: http://bl.ocks.org/mbostock/4063550 :)
 
 
 declare variable $test-json as xs:string := '{
- "name": "flare",
+ "name": "cluster",
  "children": [
   {
    "name": "analytics",
@@ -383,4 +385,45 @@ declare variable $test-json as xs:string := '{
  ]
 }';
 
-xdmp:set-response-content-type("application/json"), xdmp:unquote($test-json)
+(: xdmp:set-response-content-type("application/json"), xdmp:unquote($test-json) :)
+
+declare function local:database-forests($dbid as xs:unsignedLong) {
+    array-node {
+        for $i in xdmp:database-forests($dbid)
+        order by xdmp:forest-name($i)
+        return object-node {
+            "name" : text{xdmp:forest-name($i)}
+
+        }
+(:
+object-node {
+"name": text{"forest"},
+"size" : text{"2490"}
+},
+object-node {
+"name": text{"forest2"},
+"size" : text{"2491"}
+} :)
+    }
+};
+
+declare function local:databases() {
+    array-node {
+        for $i in xdmp:databases()
+        order by xdmp:database-name($i)
+        return object-node {
+            "name" : text {xdmp:database-name($i)},
+            "children" : local:database-forests($i)
+        }
+    }
+};
+
+declare function local:create-diagram(){
+    object-node {
+        "name" : text {"cluster"},
+        "parent" : text {"null"},
+        "children" :  local:databases() (:  local:host-forests(xdmp:host()) :)
+    }
+};
+
+xdmp:set-response-content-type("application/json"), local:create-diagram()
