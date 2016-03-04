@@ -68,6 +68,7 @@ declare function lib-view:navigation() as element(div) {
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dashboard <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/">Overview</a></li>
+                            <li><a href="/bi-level.xqy">Bi-Level Database View</a></li>
                             <li><a href="/data.xqy">Data</a></li>
                             <li><a href="/hosts.xqy">Hosts</a></li>
                             <li><a href="/servers.xqy">Servers</a></li>

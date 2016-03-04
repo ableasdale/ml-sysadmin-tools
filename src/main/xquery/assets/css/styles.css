@@ -1,5 +1,17 @@
 /* d3 specific styling */
 
+/* bi level */
+circle,
+path {
+    cursor: pointer;
+}
+
+circle {
+    fill: none;
+    pointer-events: all;
+}
+/* end bi level */
+
 /* TODO - this is taken from the flare example */
 .node circle {
     fill: #fff;
