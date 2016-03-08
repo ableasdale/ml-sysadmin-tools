@@ -11,6 +11,7 @@ element div {attribute class {"row"},
 element h3 {"Database > Forest > Fragment Chart"},
 element div {
 attribute id {"overview"}
-}
+},
+<div id="tooltip" class="hidden"></div>
 }
 },<script src="/assets/js/bi-level.js">{" "}</script>)

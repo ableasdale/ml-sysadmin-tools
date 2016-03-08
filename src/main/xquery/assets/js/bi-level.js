@@ -64,6 +64,20 @@ d3.json("/ws/bi-level-database-view.xqy", function(error, root) {
         .attr("d", arc)
         .style("fill", function(d) { return d.fill; })
         .each(function(d) { this._current = updateArc(d); })
+        .on("mouseover", function (d) {
+            d3.select("#tooltip")
+                .style("left", d3.event.pageX + "px")
+                .style("top", d3.event.pageY + "px")
+                .classed("hidden", false)
+                .append("h4").text(d.name)
+                .append("p").text(d.value)
+        })
+        .on("mouseout", function () {
+            // Hide the tooltip
+            d3.select("#tooltip")
+                .html("")
+                .classed("hidden", true);
+        })
         .on("click", zoomIn);
 
     function zoomIn(p) {

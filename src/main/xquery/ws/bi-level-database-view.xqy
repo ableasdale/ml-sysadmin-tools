@@ -409,7 +409,7 @@ declare function local:database-forests($dbid as xs:unsignedLong) {
         for $i in xdmp:database-forests($dbid)
         order by xdmp:forest-name($i)
         return object-node {
-            "name" : text{xdmp:forest-name($i)},
+            "name" : text{"Forest: " || xdmp:forest-name($i)},
             "children" : local:forest-stats($i)
         }
     }
@@ -420,7 +420,7 @@ declare function local:databases() {
         for $i in xdmp:databases()
         order by xdmp:database-name($i)
         return object-node {
-            "name" : text {xdmp:database-name($i)},
+            "name" : text {"Database: "|| xdmp:database-name($i)},
             "children" : local:database-forests($i)
         }
     }
