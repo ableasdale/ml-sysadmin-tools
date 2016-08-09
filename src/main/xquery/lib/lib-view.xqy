@@ -74,6 +74,7 @@ declare function lib-view:navigation() as element(div) {
                             <li><a href="/servers.xqy">Servers</a></li>
                             <li><a href="/databases.xqy">Databases</a></li>
                             <li><a href="/forests.xqy">Forests</a></li>
+                            <li><a href="/range-indexes.xqy">Range Index Use</a></li>
                         </ul>
                     </li>
                     <li><a href="/security.xqy">Security</a></li>
