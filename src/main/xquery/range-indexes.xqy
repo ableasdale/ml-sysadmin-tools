@@ -7,34 +7,14 @@ import module namespace admin = "http://marklogic.com/xdmp/admin" at "/MarkLogic
 declare namespace d="http://marklogic.com/xdmp/database";
 declare namespace f = "http://marklogic.com/xdmp/status/forest";
 
-
-(:~
-: User: ableasdale
-: Date: 09/08/2016
-: Time: 07:32
-: To change this template use File | Settings | File Templates.
-:)
-
-
 declare function local:qname-key($uri,$nam)
 {
-    xdmp:add64(
-        xdmp:mul64(
-            xdmp:add64(
-                xdmp:mul64(xdmp:hash64($uri),5),
-                xdmp:hash64($nam)), 5),
-        xdmp:hash64("qname()"))
+    xdmp:add64(xdmp:mul64(xdmp:add64(xdmp:mul64(xdmp:hash64($uri),5), xdmp:hash64($nam)), 5), xdmp:hash64("qname()"))
 };
 
 declare function local:attr-key($euri,$enam,$auri,$anam)
 {
-    xdmp:add64(
-            xdmp:mul64(
-                    xdmp:add64(
-                            xdmp:mul64(local:qname-key($euri,$enam),5),
-                            xdmp:hash64("/@")),
-                    5),
-            local:qname-key($auri,$anam))
+    xdmp:add64(xdmp:mul64(xdmp:add64(xdmp:mul64(local:qname-key($euri,$enam),5), xdmp:hash64("/@")), 5), local:qname-key($auri,$anam))
 };
 
 declare function local:element-range-index($uri, $nam)
