@@ -58,7 +58,7 @@ declare function common:database-forest-composition() {
         order by $db/db:database-name
         return (
             element div {attribute class {"panel panel-default"},
-                element div {attribute class {"panel-heading"}, $db-name},
+                element div {attribute class {"panel-heading"}, <h3 class="panel-title">{$db-name}</h3>},
                 element div {attribute class {"panel-body"},
                     element ul { attribute class {"list-unstyled"},
                         for $c in $db/*[fn:string(.) = "true"]
