@@ -7,6 +7,7 @@ import module namespace ses = "http://www.w3.org/2003/05/xpath-functions" at "/M
 declare namespace qry = "http://marklogic.com/cts/query";
 declare namespace sec = "http://marklogic.com/xdmp/security";
 
+declare namespace xdmp = "http://marklogic.com/xdmp";
 declare namespace db = "http://marklogic.com/xdmp/database";
 declare namespace h = "http://marklogic.com/xdmp/hosts";
 declare namespace g = "http://marklogic.com/xdmp/group";
@@ -45,8 +46,7 @@ declare function common:get-log-directory() {
 
 :)
 declare function common:database-forest-composition() {
-    element div {
-        attribute class {"row"},
+    <div class="row">{
         for $db in $DATABASES
         let $db-name := $db/db:database-name/fn:string(.)
         let $indexes := fn:string-join($db/*[fn:string(.) = "true"]/fn:local-name(.), ",")
@@ -55,77 +55,82 @@ declare function common:database-forest-composition() {
         let $documents := 0
         let $size := 0
         let $memory := 0
-        order by $db/db:database-name 
+        order by $db/db:database-name
         return (
-            element table {
-                attribute class {"table table-striped table-bordered"},
-                
-                
-                element tr {element th {attribute colspan {"10"}, $db-name}},
-                element tr {element td {attribute colspan {"10"}, $indexes}},
-                element tr {
-                    element td {"Forests"},
-                    element td {"Host"},
-                    element td {"Stands"},
-                    element td {"Active Fr"},
-                    element td {"Deleted Fr"},
-                    element td {"Documents"},
-                    element td {"DB Size"},
-                    element td {"Mem Size"},
-                    element td {"LC Ratio"},
-                    element td {"LC Hit/Miss Rate"},
-                    element td {"CTC Ratio"}
-                },
-                for $f at $j in fn:data($db/db:forests/db:forest-id)
-                let $fs := xdmp:forest-status($f)
-                let $fc := xdmp:forest-counts(fn:data($fs//f:current-master-forest))
-                let $ms := xdmp:forest-status(data($fs//f:current-master-forest))
-                let $replicas := $fs//f:replica-forest/fn:string(.)
-                let $rs := for $r in $replicas
-                return
-                    xdmp:forest-status($r)
-                let $forest-host := xdmp:host-status(fn:data($fs/f:host-id))
-                let $group := $ses:groups.xml/g:group[g:group-id eq fn:data($forest-host/h:group)]
-                (: let $group := map:get($GROUPS, fn:string($forest-host/h:group)) :)
-                let $_ := xdmp:set($fragments, $fragments + fn:sum($fc//f:active-fragment-count))
-                let $_ := xdmp:set($dfragments, $dfragments + fn:sum($fc//f:deleted-fragment-count))
-                let $_ := xdmp:set($size, $size + fn:sum($fs//f:disk-size))
-                let $_ := xdmp:set($memory, $memory + fn:sum($fs//f:memory-size))
-                let $_ := xdmp:set($documents, $documents + fn:sum($fc//f:document-count))
-                order by $group/g:group-name
-                return
+            element h4 {$db-name},
+            element p {$indexes},
+            element table {attribute class {"table table-striped table-bordered"},
+                element thead {
                     element tr {
-                        
-                        element td {attribute style {"padding-left:20px"}, fn:string($fs/f:forest-name)},
-                        
-                        element td {fn:string($forest-host/h:host-name), "-", xdmp:group-name(xdmp:host-group($forest-host/h:host-id))},
-                        (:    fn:data(map:get($GROUPS, $forest-host/h:group/fn:string(.))/g:group-name :)
-                        element td {fn:count($fs//f:stand)},
-                        element td {common:format(fn:sum($fc//f:active-fragment-count) div 1000000)},
-                        element td {common:format(fn:sum($fc//f:deleted-fragment-count) div 1000000)},
-                        element td {common:format(fn:sum($fc//f:document-count) div 1000000)},
-                        element td {common:format(fn:sum($fs//f:disk-size) div 1024)},
-                        element td {common:format(fn:sum($fs//f:memory-size) div 1024)},
-                        element td {common:ratio($ms//f:list-cache-hits, $ms//f:list-cache-misses)},
-                        element td {common:format(fn:avg($ms//f:list-cache-hit-rate)), "/", common:format(fn:avg($ms//f:list-cache-miss-rate))},
-                        
-                        element td {common:ratio($ms//f:compressed-tree-cache-hits, $ms//f:compressed-tree-cache-misses)}
-                    },
-                element tr {
-                    element td {attribute style {"padding-left:20px"}, "Total"},
-                    element td {" "},
-                    element td {" "},
-                    element td {common:format($fragments div 1000000)},
-                    element td {common:format($dfragments div 1000000)},
-                    element td {common:format($documents div 1000000)},
-                    element td {common:format($size div 1024)},
-                    element td {common:format($memory div 1024)}
-                    
+                        element th {"Forests"},
+                        element th {"Host"},
+                        element th {"Stands"},
+                        element th {"Active Fr"},
+                        element th {"Deleted Fr"},
+                        element th {"Documents"},
+                        element th {"DB Size"},
+                        element th {"Mem Size"},
+                        element th {"LC Ratio"},
+                        element th {"LC Hit/Miss Rate"},
+                        element th {"CTC Ratio"}
+                    }
+                },
+                element tbody {
+                    for $f at $j in fn:data($db/db:forests/db:forest-id)
+                    let $fs := xdmp:forest-status($f)
+                    let $fc := xdmp:forest-counts(fn:data($fs//f:current-master-forest))
+                    let $ms := xdmp:forest-status(fn:data($fs//f:current-master-forest))
+                    let $replicas := $fs//f:replica-forest/fn:string(.)
+                    let $rs := for $r in $replicas
+                    return
+                        xdmp:forest-status($r)
+                    let $forest-host := xdmp:host-status(fn:data($fs/f:host-id))
+                    let $group := $ses:groups.xml/g:group[g:group-id eq fn:data($forest-host/h:group)]
+                    (: let $group := map:get($GROUPS, fn:string($forest-host/h:group)) :)
+                    let $_ := xdmp:set($fragments, $fragments + fn:sum($fc//f:active-fragment-count))
+                    let $_ := xdmp:set($dfragments, $dfragments + fn:sum($fc//f:deleted-fragment-count))
+                    let $_ := xdmp:set($size, $size + fn:sum($fs//f:disk-size))
+                    let $_ := xdmp:set($memory, $memory + fn:sum($fs//f:memory-size))
+                    let $_ := xdmp:set($documents, $documents + fn:sum($fc//f:document-count))
+                    order by $group/g:group-name
+                    return
+                        element tr {
+
+                            element td {attribute style {"padding-left:20px"}, fn:string($fs/f:forest-name)},
+
+                            element td {fn:string($forest-host/h:host-name), "-", xdmp:group-name(xdmp:host-group($forest-host/h:host-id))},
+                            (:    fn:data(map:get($GROUPS, $forest-host/h:group/fn:string(.))/g:group-name :)
+                            element td {fn:count($fs//f:stand)},
+                            element td {common:format(fn:sum($fc//f:active-fragment-count) div 1000000)},
+                            element td {common:format(fn:sum($fc//f:deleted-fragment-count) div 1000000)},
+                            element td {common:format(fn:sum($fc//f:document-count) div 1000000)},
+                            element td {common:format(fn:sum($fs//f:disk-size) div 1024)},
+                            element td {common:format(fn:sum($fs//f:memory-size) div 1024)},
+                            element td {common:ratio($ms//f:list-cache-hits, $ms//f:list-cache-misses)},
+                            element td {common:format(fn:avg($ms//f:list-cache-hit-rate)), "/", common:format(fn:avg($ms//f:list-cache-miss-rate))},
+
+                            element td {common:ratio($ms//f:compressed-tree-cache-hits, $ms//f:compressed-tree-cache-misses)}
+                        }
+                },
+                element tfoot {
+                    element tr {
+                        element td {attribute style {"padding-left:20px"}, "Total"},
+                        element td {" "},
+                        element td {" "},
+                        element td {common:format($fragments div 1000000)},
+                        element td {common:format($dfragments div 1000000)},
+                        element td {common:format($documents div 1000000)},
+                        element td {common:format($size div 1024)},
+                        element td {common:format($memory div 1024)},
+                        element td {" "},
+                        element td {" "},
+                        element td {" "}
+                    }
                 }
             }
         ),
         element hr {" "}
-    }
+    }</div>
 };
 
 declare function common:get-base-xsd-path() {
