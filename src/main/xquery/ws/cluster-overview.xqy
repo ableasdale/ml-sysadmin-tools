@@ -162,25 +162,19 @@ declare function local:host-get-forest-details($hostname as xs:string) {
 for $i in xdmp:host-forests(xdmp:host($hostname))
 let $fc := xdmp:forest-counts($i)
 return object-node {
-    "name" : text {xdmp:forest-name($i)},
-    "children" : array-node {
-        object-node {
-            "documents"  : text { fn:data(sum($fc//f:document-count)) },
-            "active"  : text { fn:data(sum($fc//f:active-fragment-count)) },
-            "nascent" : text { fn:data(sum($fc//f:nascent-fragment-count)) },
-            "deleted" : text { fn:data(sum($fc//f:deleted-fragment-count)) }
-        }
+"name" : text {xdmp:forest-name($i)},
+"documents" : text {fn:data(sum($fc//f:document-count))},
+"children" : array-node {
+    for $i in $fc//f:stand-counts
+    return object-node {
+    "name" : text {fn:data($i/f:stand-id)},
+    "documents" : text {fn:data($i/f:active-fragment-count)}
+    }
     }
 (: "parent" : text {$common:DATABASE} :)
 }
 };
 
-(: json:object-node {"hello": "world"}
-object-node {
-"name" : text {$common:DATABASE},
-"parent" : text {"null"},
-"children" : array-node {local:database-get-forest-details(xdmp:database($common:DATABASE))}
-} :)
 
 object-node {
     "children" : array-node {
@@ -194,8 +188,8 @@ object-node {
 
 
 (: To return test data ^ just do the following
-xdmp:set-response-content-type("application/json"), xdmp:unquote($small-test-json) :)
-
+xdmp:set-response-content-type("application/json"), xdmp:unquote($test-json)
+:)
 (:
 /*
 
