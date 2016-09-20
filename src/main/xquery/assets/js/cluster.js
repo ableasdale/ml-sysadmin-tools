@@ -73,7 +73,7 @@ $(document).ready(function () {
                     .style("top", d3.event.pageY + "px")
                     .classed("hidden", false)
                     .append("h4").text(d.name)
-                    .append("p").text(d.value)
+                    .append("p").text(d.value + " fragments")
             })
             .on("mouseout", function () {
                 // Hide the tooltip
