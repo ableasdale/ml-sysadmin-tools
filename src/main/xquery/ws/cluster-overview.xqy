@@ -159,7 +159,7 @@ declare variable $test-json as xs:string := '{
 
 
 declare function local:host-get-forest-details($hostname as xs:string) {
-for $i in xdmp:host-forests(xdmp:host())
+for $i in xdmp:host-forests(xdmp:host($hostname))
 let $fc := xdmp:forest-counts($i)
 return object-node {
     "name" : text {xdmp:forest-name($i)},
