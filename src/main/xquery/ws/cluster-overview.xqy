@@ -165,7 +165,7 @@ return object-node {
     "name" : text {xdmp:forest-name($i)},
     "children" : array-node {
         object-node {
-            "documents"  : text { fn:data($fc/f:document-count) },
+            "documents"  : text { fn:data(sum($fc//f:document-count)) },
             "active"  : text { fn:data(sum($fc//f:active-fragment-count)) },
             "nascent" : text { fn:data(sum($fc//f:nascent-fragment-count)) },
             "deleted" : text { fn:data(sum($fc//f:deleted-fragment-count)) }
