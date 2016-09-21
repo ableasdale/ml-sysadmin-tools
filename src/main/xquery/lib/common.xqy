@@ -178,8 +178,7 @@ declare function common:get-uris-from-term-key($key) {
 };
 
 declare function common:lookup-term-from-key($key as xs:unsignedLong) {
-    let $options := <options
-        xmlns="cts:train"><use-db-config>true</use-db-config><details>true</details></options>
+    let $options := <options xmlns="cts:train"><use-db-config>true</use-db-config><details>true</details></options>
     let $doc := (cts:search(doc(), cts:term-query($key)))[1]
     return
         cts:hash-terms($doc, $options)//cts:term[@id = $key]

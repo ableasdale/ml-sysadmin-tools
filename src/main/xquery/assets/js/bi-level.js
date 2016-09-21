@@ -6,7 +6,7 @@
 var margin = {top: 350, right: 480, bottom: 350, left: 480},
     radius = Math.min(margin.top, margin.right, margin.bottom, margin.left) - 10;
 
-var hue = d3.scale.category10();
+var hue = d3.scale.category20c();
 
 var luminance = d3.scale.sqrt()
     .domain([0, 1e6])
