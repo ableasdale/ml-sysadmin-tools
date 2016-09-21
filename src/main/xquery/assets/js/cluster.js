@@ -13,7 +13,7 @@
 
 $(document).ready(function () {
 
-    var width = 960, height = 700, radius = 320;
+    var width = 960, height = 700, radius = 150;
     var jsonData;
     d3.json("/ws/cluster-overview.xqy", function (error, data) {
         //if (error) return console.warn(error);
@@ -25,7 +25,7 @@ $(document).ready(function () {
 // .range(['#74E600', '#26527C', '#61D7A4', '#6CAC2B', '#408AD2', '#218359', '#36D792', '#679ED2', '#B0F26D', '#4B9500', '#98F23D', '#04396C', '#007241']);
 // debug console.dir(d3.select("div#overview").append('p').text('DO we ever see this text?'));
 
-    var length = 100;
+    //var length = 100;
     //var color = d3.scale.linear().domain([1,length]).interpolate(d3.interpolateHcl).range([d3.rgb("#007AFF"), d3.rgb('#FFF500')]);
     var color = d3.scale.category20c();
 
@@ -53,7 +53,8 @@ $(document).ready(function () {
             return Math.sqrt(d.y);
         })
         .outerRadius(function (d) {
-            return Math.sqrt(d.y + d.dy);
+            // make the outer part a larger area
+            return Math.sqrt(d.y + d.dy * 20);
         });
 
     function doUpdate(myData) {
@@ -64,10 +65,7 @@ $(document).ready(function () {
                 return d.depth ? null : "none";
             }) // hide inner ring
             .attr("d", arc)
-            /*.append("text")
-             .attr("x", 8)
-             .attr("dy", 28)
-             .text("a") */
+
             .attr("class", function (d) {
                 return (d.children ? d : d.parent).name;
             })
