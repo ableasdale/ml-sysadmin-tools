@@ -21,9 +21,13 @@ $(document).ready(function () {
         doUpdate(data);
     });
 
-    var color = d3.scale.category20c();
+
 // .range(['#74E600', '#26527C', '#61D7A4', '#6CAC2B', '#408AD2', '#218359', '#36D792', '#679ED2', '#B0F26D', '#4B9500', '#98F23D', '#04396C', '#007241']);
 // debug console.dir(d3.select("div#overview").append('p').text('DO we ever see this text?'));
+
+    var length = 100;
+    //var color = d3.scale.linear().domain([1,length]).interpolate(d3.interpolateHcl).range([d3.rgb("#007AFF"), d3.rgb('#FFF500')]);
+    var color = d3.scale.category20c();
 
     var svg = d3.select("div#overview").append("svg")
         .attr("width", width)
@@ -68,12 +72,14 @@ $(document).ready(function () {
                 return (d.children ? d : d.parent).name;
             })
             .on("mouseover", function (d) {
+                //console.dir(d);
                 d3.select("#tooltip")
                     .style("left", d3.event.pageX + "px")
                     .style("top", d3.event.pageY + "px")
                     .classed("hidden", false)
                     .append("h4").text(d.name)
-                    .append("p").text(d.value + " fragments")
+                    .append("p").text(d.value + " documents");
+                if(d.disksize) {d3.select("#tooltip").append("p").text("Size on disk: "+ d.disksize + "MB")}
             })
             .on("mouseout", function () {
                 // Hide the tooltip
@@ -85,7 +91,7 @@ $(document).ready(function () {
             .style("fill", function (d) {
                 return color((d.children ? d : d.parent).name);
             })
-            .style("fill-rule", "evenodd");
+            .style("fill-rule", "inherit");
     }
 
     /* This is a bit funky right now - I have to load the JSON and call this twice (first is below and the second is when we get the data
