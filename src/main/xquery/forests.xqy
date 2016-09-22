@@ -63,7 +63,7 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Rebalancer preview",
         attribute class {"container"},
         lib-view:page-header("Forest counts (rebalancer preview)", $common:DATABASE, lib-view:database-select()),
         local:database-forest-preview(),
-        common:database-forest-composition(),
+        common:database-forest-composition($common:DATABASE),
         local:rebalancer-preview()
     },
 <script src="/assets/js/forests.js">{" "}</script>

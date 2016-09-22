@@ -13,7 +13,7 @@
 
 $(document).ready(function () {
 
-    var width = 960, height = 700, radius = 150;
+    var width = 960, height = 760, radius = 150;
     var jsonData;
     d3.json("/ws/cluster-overview.xqy", function (error, data) {
         //if (error) return console.warn(error);
