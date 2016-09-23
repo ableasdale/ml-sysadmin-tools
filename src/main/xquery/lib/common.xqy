@@ -10,6 +10,7 @@ declare namespace sec = "http://marklogic.com/xdmp/security";
 declare namespace xdmp = "http://marklogic.com/xdmp";
 declare namespace db = "http://marklogic.com/xdmp/database";
 declare namespace h = "http://marklogic.com/xdmp/hosts";
+declare namespace hs = "http://marklogic.com/xdmp/status/host";
 declare namespace g = "http://marklogic.com/xdmp/group";
 declare namespace f = "http://marklogic.com/xdmp/status/forest";
 
@@ -104,6 +105,7 @@ declare function common:render-database-forest-composition($db) {
                 return
                     xdmp:forest-status($r)
                 let $forest-host := xdmp:host-status(fn:data($fs/f:host-id))
+                let $_ := xdmp:log($forest-host)
                 let $group := $ses:groups.xml/g:group[g:group-id eq fn:data($forest-host/h:group)]
                 (: let $group := map:get($GROUPS, fn:string($forest-host/h:group)) :)
                 let $_ := xdmp:set($fragments, $fragments + fn:sum($fc//f:active-fragment-count))
@@ -115,7 +117,7 @@ declare function common:render-database-forest-composition($db) {
                 return
                     element tr {
                         element td {attribute style {"padding-left:20px"}, fn:string($fs/f:forest-name)},
-                        element td {fn:string($forest-host/h:host-name), "-", xdmp:group-name(xdmp:host-group($forest-host/h:host-id))},
+                        element td {fn:string($forest-host/hs:host-name), "-", xdmp:group-name(xdmp:host-group($forest-host/hs:host-id))},
                         (:    fn:data(map:get($GROUPS, $forest-host/h:group/fn:string(.))/g:group-name :)
                         element td {fn:count($fs//f:stand)},
                         element td {common:format(fn:sum($fc//f:active-fragment-count) div 1000000)},
