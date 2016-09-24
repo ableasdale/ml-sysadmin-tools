@@ -61,7 +61,7 @@ declare function local:rebalancer-preview() as element(div) {
 lib-view:create-bootstrap-page("MarkLogic Tools: Rebalancer preview",
     element div {
         attribute class {"container"},
-        lib-view:page-header("Forest counts (rebalancer preview)", $common:DATABASE, lib-view:database-select()),
+        lib-view:page-header("Forest Counts (Rebalancer Preview)", $common:DATABASE, lib-view:database-select()),
         local:database-forest-preview(),
         common:database-forest-composition($common:DATABASE),
         local:rebalancer-preview()
