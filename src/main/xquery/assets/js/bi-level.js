@@ -70,7 +70,7 @@ d3.json("/ws/bi-level-database-view.xqy", function(error, root) {
                 .style("top", d3.event.pageY + "px")
                 .classed("hidden", false)
                 .append("h4").text(d.name)
-                .append("p").text(d.value + " fragments")
+                .append("p").text(d.value.toLocaleString('en') + " fragments")
         })
         .on("mouseout", function () {
             // Hide the tooltip
