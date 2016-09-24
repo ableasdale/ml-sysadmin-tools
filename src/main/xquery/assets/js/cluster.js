@@ -76,7 +76,7 @@ $(document).ready(function () {
                     .style("top", d3.event.pageY + "px")
                     .classed("hidden", false)
                     .append("h4").text(d.name)
-                    .append("p").text(d.value + " documents");
+                    .append("p").text(d.value.toLocaleString('en') + " Documents");
                 if(d.disksize) {d3.select("#tooltip").append("p").text("Size on disk: "+ d.disksize + "MB")}
             })
             .on("mouseout", function () {
