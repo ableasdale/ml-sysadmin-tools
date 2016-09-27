@@ -83,7 +83,7 @@ declare function common:render-database-forest-composition($db) {
             element thead {
                 element tr {
                     element th {"Forests"},
-                    element th {"Host"},
+                    element th {"Host / Group"},
                     element th {"Stands"},
                     element th {"Active Fr"},
                     element th {"Deleted Fr"},
@@ -117,7 +117,7 @@ declare function common:render-database-forest-composition($db) {
                 return
                     element tr {
                         element td {attribute style {"padding-left:20px"}, fn:string($fs/f:forest-name)},
-                        element td {fn:string($forest-host/hs:host-name), "-", xdmp:group-name(xdmp:host-group($forest-host/hs:host-id))},
+                        element td {$forest-host/hs:host-name || " (" || xdmp:group-name(xdmp:host-group($forest-host/hs:host-id)) || ")"},
                         (:    fn:data(map:get($GROUPS, $forest-host/h:group/fn:string(.))/g:group-name :)
                         element td {fn:count($fs//f:stand)},
                         element td {common:format(fn:sum($fc//f:active-fragment-count) div 1000000)},
