@@ -10,6 +10,10 @@ declare namespace sec = "http://marklogic.com/xdmp/security";
 declare namespace g="http://marklogic.com/xdmp/group";
 
 
+declare function local:statistics() {
+	element p {"Todo - background stats here"}
+};
+
 declare function local:hosts() {
     (:	let $map := map:map()
 	let $_ := for $s in xdmp:host-status(xdmp:hosts()) return  map:put ($common:HOSTS, xs:string($s/hs:host-id), $s)
@@ -74,7 +78,8 @@ attribute class {"container"},
 	},
 	element div {attribute class {"row"},
 		element h4 {"Current Timestamp time: ", element small{xdmp:timestamp-to-wallclock(xdmp:request-timestamp())}},
-	    local:hosts()
+	    local:hosts(),
+		local:statistics()
 	}
 }, <script src="/assets/js/hosts.js">{" "}</script>)
 
