@@ -9,9 +9,22 @@ declare namespace f="http://marklogic.com/xdmp/status/forest";
 declare namespace sec = "http://marklogic.com/xdmp/security";
 declare namespace g="http://marklogic.com/xdmp/group";
 
+(:
+declare variable $HOSTS := xdmp:hosts();
+declare variable $HOST-STATUS
+:)
 
 declare function local:statistics() {
-	element p {"Todo - background stats here"}
+	(: TODO - we call this twice - which is a bit stupid :)
+	for $hostid at $i in xdmp:hosts()
+	(: let $host := map:get($common:HOSTS, xs:string($hostid)) :)
+	let $status := xdmp:host-status($hostid)
+	let $forests := xdmp:forest-status(xdmp:host-forests($hostid))
+	let $fcounts := xdmp:forest-counts(xdmp:host-forests($hostid))
+	return (
+		element pre {element code {$status/h:background-period}},
+		element pre {element code {$status/h:background-process}}
+	)
 };
 
 declare function local:hosts() {
