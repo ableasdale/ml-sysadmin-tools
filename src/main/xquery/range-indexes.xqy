@@ -127,6 +127,7 @@ declare function local:compute-indexes($db-name){
         return
             for $dir in local:get-stand-directories(local:get-forest-data-directory($forest))
             return
+                (: TODO - these need to be invoked! :)
                 for $entry in xdmp:filesystem-directory($dir)//dir:entry
                 return
                     local:add-to-memory-map($map,$entry)
