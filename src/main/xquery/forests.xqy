@@ -19,12 +19,30 @@ declare function local:database-forest-preview() as element(div) {
 
 
 declare function local:reindexer-preview() {
-    <pre><code>
+    <div class="row">
+        <h3>Forest Counts with Reindexer Preview</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>{for $i in ("Source Forest", "Current Time", "Reindex Refragment Fragment Count", "Reindex Fragment Count") return element th {$i}}</tr>
+            </thead>
+            <tbody>{
+for $f in $common:FOREST-COUNTS-REINDEXER
+return element tr {
+    element td {fn:data($f/f:forest-name)},
+    element td {fn:data($f/f:current-time)},
+    element td {fn:data($f/f:reindex-refragment-fragment-count)},
+    element td {fn:data($f/f:reindex-fragment-count)}
+}
+            }</tbody>
+        </table>
+
+<pre><code>
 {
 for $f in $common:FOREST-COUNTS-REINDEXER
 return xdmp:quote($f)
 }
-    </code></pre>
+</code></pre>
+    </div>
 };
 
 (:~ 
