@@ -30,7 +30,7 @@ declare function lib-view:create-bootstrap-page($title as xs:string, $content as
         },
         element link {
             attribute rel {"stylesheet"},
-            attribute href {"https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.css"}
+            attribute href {"https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.19.0/codemirror.min.css"}
         },
         element link {
             attribute rel {"stylesheet"},
@@ -41,10 +41,11 @@ declare function lib-view:create-bootstrap-page($title as xs:string, $content as
     },
     <script src="https://code.jquery.com/jquery-2.2.1.min.js">{" "}</script>,
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">{" "}</script>,
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.js">{" "}</script>,
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/mode/xquery/xquery.min.js">{" "}</script>,
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.19.0/codemirror.min.js">{" "}</script>,
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.19.0/mode/xquery/xquery.min.js">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.js">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js">{" "}</script>,
+
     $additional-resource
 };
 
@@ -77,8 +78,16 @@ declare function lib-view:navigation() as element(div) {
                             <li><a href="/range-indexes.xqy">Range Index Use</a></li>
                         </ul>
                     </li>
-                    <li><a href="/security.xqy">Security</a></li>
-                    
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuration <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/configuration/security.xqy">Security</a></li>
+                            <li><a href="/configuration/visual.xqy">Visual Diff on Config Files</a></li>
+                            <li><a href="/configuration/backup.xqy">Backup Config Files</a></li>
+                        </ul>
+                    </li>
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">

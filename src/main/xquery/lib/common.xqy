@@ -254,50 +254,7 @@ declare function common:nav-item($path as xs:string, $name as xs:string) {
     }
 };
 
-declare function common:nav() {
-    <nav
-        class="navbar navbar-default">
-        <div
-            class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div
-                class="navbar-header">
-                <button
-                    type="button"
-                    class="navbar-toggle collapsed"
-                    data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1"
-                    aria-expanded="false">
-                    <span
-                        class="sr-only">Toggle navigation</span>
-                    <span
-                        class="icon-bar"></span>
-                    <span
-                        class="icon-bar"></span>
-                    <span
-                        class="icon-bar"></span>
-                </button>
-                <a
-                    class="navbar-brand"
-                    href="#">ML Support Summit 2015</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div
-                class="collapse navbar-collapse"
-                id="bs-example-navbar-collapse-1">
-                <ul
-                    class="nav navbar-nav">
-                    {
-                        common:nav-item("/", "XML Schemas"),
-                        common:nav-item("/all.xqy", "All XSD items"),
-                        common:nav-item("/min-max.xqy", "Min / Max"),
-                        common:nav-item("/functions.xqy", "Builtin Functions"),
-                        common:nav-item("/plan.xqy", "XDMP Plan Breakdown"),
-                        common:nav-item("/security.xqy", "User / Role Mappings"),
-                        common:nav-item("/queries.xqy", "Long running queries")
-                    }
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
+
+declare function common:generate-filename() as xs:string {
+    fn:concat(xdmp:hostname(),"-",fn:format-dateTime(fn:current-dateTime(), "[Y01][M01][D01]-[H01][m01][s01]"),".zip")
 };
