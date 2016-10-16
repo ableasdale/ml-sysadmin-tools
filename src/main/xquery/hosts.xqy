@@ -22,8 +22,8 @@ declare function local:statistics() {
 	let $forests := xdmp:forest-status(xdmp:host-forests($hostid))
 	let $fcounts := xdmp:forest-counts(xdmp:host-forests($hostid))
 	return (
-		element pre {element code {$status/h:background-period}},
-		element pre {element code {$status/h:background-process}}
+		element pre {element code {xdmp:quote($status/hs:background-period)}},
+		element pre {element code {xdmp:quote($status/hs:background-process)}}
 	)
 };
 
