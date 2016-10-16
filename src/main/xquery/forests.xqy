@@ -18,6 +18,15 @@ declare function local:database-forest-preview() as element(div) {
 };
 
 
+declare function local:reindexer-preview() {
+    <pre><code>
+{
+for $f in $common:FOREST-COUNTS-REINDEXER
+return xdmp:quote($f)
+}
+    </code></pre>
+};
+
 (:~ 
 
 :)
@@ -64,7 +73,8 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Rebalancer preview",
         lib-view:page-header("Forest Counts (Rebalancer Preview)", $common:DATABASE, lib-view:database-select()),
         local:database-forest-preview(),
         common:database-forest-composition($common:DATABASE),
-        local:rebalancer-preview()
+        local:rebalancer-preview(),
+        local:reindexer-preview()
     },
 <script src="/assets/js/forests.js">{" "}</script>
 )

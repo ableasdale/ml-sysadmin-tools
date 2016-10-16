@@ -26,6 +26,7 @@ declare variable $HOSTIDS := xdmp:hosts();
 declare variable $PATHSEP := if (xdmp:platform() = "winnt") then "\\" else "/";
 declare variable $DATABASE := xdmp:get-request-field("db", xdmp:database-name(xdmp:database()));
 declare variable $FOREST-COUNTS-REBALANCER := xdmp:forest-counts(xdmp:database-forests(xdmp:database($DATABASE)), (), ("preview-rebalancer"));
+declare variable $FOREST-COUNTS-REINDEXER := xdmp:forest-counts(xdmp:database-forests(xdmp:database($DATABASE)), (), ("preview-reindexer"));
 declare variable $DATABASES  as element(db:database)+ := $ses:databases.xml/node();
 
 declare function common:format($number) {
