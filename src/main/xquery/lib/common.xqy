@@ -236,8 +236,7 @@ return (element li {attribute class {"user-name"}, element span {attribute class
 }
 ',
     (),
-    <options
-        xmlns="xdmp:eval">
+    <options xmlns="xdmp:eval">
         <database>{xdmp:security-database()}</database>
     </options>)
 };

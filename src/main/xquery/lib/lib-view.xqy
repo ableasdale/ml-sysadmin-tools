@@ -110,6 +110,27 @@ declare function lib-view:navigation() as element(div) {
     </div>
 };
 
+declare function lib-view:item-select($seq as xs:string*, $arg as xs:string) as element(div) {
+    element div {attribute class {"dropdown"},
+        element button {
+            attribute class {"btn btn-default dropdown-toggle"},
+            attribute type {"button"},
+            attribute id {"select"},
+            attribute data-toggle {"dropdown"},
+            attribute aria-haspopup {"true"},
+            attribute aria-expanded {"true"},
+            "Choose ", element span {attribute class {"caret"}}
+        },
+        element ul {
+            attribute class {"dropdown-menu"}, attribute aria-labelledby {"select"},
+            element li {attribute class {"dropdown-header"}, "Available Files:"},
+            for $x in $seq
+            return
+                element li {element a {attribute href {"?"||$arg||"="||$x}, $x}}
+        }
+    }
+};
+
 declare function lib-view:database-select() as element(div) {
     element div {attribute class {"dropdown"},
         element button {
