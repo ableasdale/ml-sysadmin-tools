@@ -31,10 +31,16 @@ declare function local:build-zip(){
                 return xdmp:read-cluster-config-file($i)
             ))
     return
+
+    (xdmp:set-response-content-type("application/zip"),
+    xdmp:add-response-header("Content-Disposition", fn:concat("attachment; filename=", $FILENAME)),
+    $zip)
+
+    (:)
         xdmp:save(concat("/tmp/", $FILENAME), $zip,
                 <options xmlns="xdmp:save">
                     <encoding>utf8</encoding>
-                </options>)
+                </options>) :)
 
 };
 
