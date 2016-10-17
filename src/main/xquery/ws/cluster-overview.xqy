@@ -16,7 +16,7 @@ return object-node {
     return object-node {
     "name" : text {fn:data($i/f:stand-id)},
     "documents" : text {fn:data($i/f:active-fragment-count)},
-    "disksize" : text {$FOREST-STATUS//*:stand[*:stand-id eq fn:data($i/f:stand-id)]/*:disk-size}
+    "disksize" : text {fn:sum($FOREST-STATUS//*:stand[*:stand-id eq fn:data($i/f:stand-id)]/*:disk-size)}
     }
     }
 (: "parent" : text {$common:DATABASE} :)
