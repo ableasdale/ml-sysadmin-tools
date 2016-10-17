@@ -101,7 +101,7 @@ declare function common:render-database-forest-composition($db) {
                 let $fs := xdmp:forest-status($f)
                 let $fc := xdmp:forest-counts(fn:data($fs//f:current-master-forest))
                 let $ms := xdmp:forest-status(fn:data($fs//f:current-master-forest))
-                let $replicas := $fs//f:replica-forest/fn:string(.)
+                let $replicas := $fs//f:replica-forest/xs:unsignedLong(.)
                 let $rs := for $r in $replicas
                 return
                     xdmp:forest-status($r)
