@@ -4,8 +4,13 @@ import module namespace common = "http://help.marklogic.com/common" at "/lib/com
 import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "/lib/lib-view.xqy";
 import module namespace admin = "http://marklogic.com/xdmp/admin" at "/MarkLogic/admin.xqy";
 
-declare namespace d="http://marklogic.com/xdmp/database";
+declare namespace d = "http://marklogic.com/xdmp/database";
 declare namespace f = "http://marklogic.com/xdmp/status/forest";
+
+declare variable $USER as xs:string := "q"; 
+declare variable $PASS as xs:string := "q"; 
+declare variable $PORT as xs:string := "9999"; 
+declare variable $ENDPOINT as xs:string := "/endpoint.xqy"; 
 
 declare function local:qname-key($uri,$nam)
 {
@@ -98,6 +103,22 @@ declare function local:get-stand-directories($dir as xs:string){
             $entry//dir:pathname/text()
         else()
 };
+
+declare function local:generate-cluster-endpoints() as xs:string* {
+  for $h in xdmp:hosts()
+  return concat ("http://",xdmp:host-name($h),":",$PORT, $ENDPOINT)
+};
+
+(:)
+for $uri in local:generate-cluster-endpoints()
+return xdmp:document-get($uri, 
+<options xmlns="xdmp:document-get" xmlns:http="xdmp:http">
+  <format>xml</format>
+    <http:authentication>
+      <http:username>{$USER}</http:username>
+      <http:password>{$PASS}</http:password>
+    </http:authentication>
+</options>) :)
 
 declare function local:add-to-memory-map($map as map:map,$entry as element(dir:entry)){
     let $filename := fn:replace($entry/dir:filename/text(),"-$","")

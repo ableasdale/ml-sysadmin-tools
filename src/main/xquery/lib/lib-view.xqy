@@ -110,7 +110,7 @@ declare function lib-view:navigation() as element(div) {
     </div>
 };
 
-declare function lib-view:item-select($seq as xs:string*, $arg as xs:string) as element(div) {
+declare function lib-view:item-select($seq as xs:string*, $arg1 as xs:string, $arg2 as xs:string, $left as xs:boolean, $alt as xs:string) as element(div) {
     element div {attribute class {"dropdown"},
         element button {
             attribute class {"btn btn-default dropdown-toggle"},
@@ -126,7 +126,9 @@ declare function lib-view:item-select($seq as xs:string*, $arg as xs:string) as 
             element li {attribute class {"dropdown-header"}, "Available Files:"},
             for $x in $seq
             return
-                element li {element a {attribute href {"?"||$arg||"="||$x}, $x}}
+                if($left)
+                then (element li {element a {attribute href {"?"||$arg1||"="||$x||"&amp;"||$arg2||"="||$alt}, $x}})
+                else (element li {element a {attribute href {"?"||$arg1||"="||$alt||"&amp;"||$arg2||"="||$x}, $x}})
         }
     }
 };

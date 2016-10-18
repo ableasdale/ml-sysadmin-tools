@@ -12,22 +12,25 @@ declare function local:get-config-files() {
     return $i
 };
 
-lib-view:create-bootstrap-page("MarkLogic Tools: Security Database Layout",
+lib-view:create-bootstrap-page("MarkLogic Tools: Visual Diff of Config Files",
     element div {attribute class {"container"},
-    lib-view:page-header("Visual Diff", "Security Database", " "),
+    lib-view:page-header("Visual Diff", "Config Files", " "),
     <div class="row">
 <!-- h4>Visual Diff <small>{xdmp:get-request-field("cfg")}</small></h4 -->
-        <div class="row">
-            <div class="col-md-6">
-                {lib-view:item-select(local:get-config-files(),"db1")}
-                <p>Primary file: <strong>{$primary}</strong></p>
+        <div class="row" style="padding-bottom:1em;">
+            <div class="col-md-1">
+                {lib-view:item-select(local:get-config-files(),"db1", "db2", fn:true(), $secondary)}
             </div>
-            <div class="col-md-6">
-                {lib-view:item-select(local:get-config-files(),"db2")}
-                <p>Secondary file: <strong>{$secondary}</strong></p>
+            <div class="col-md-5">
+                <h4>Primary file: <strong>{$primary}</strong></h4>
+            </div> 
+            <div class="col-md-1">
+                {lib-view:item-select(local:get-config-files(),"db1", "db2", fn:false(), $primary)}
+            </div>
+            <div class="col-md-5">
+                <h4>Secondary file: <strong>{$secondary}</strong></h4>
             </div>
         </div>
-
         <div id="panel1" style="display:none;">{xdmp:read-cluster-config-file($primary)}</div>
         <div id="panel2" style="display:none;">{xdmp:read-cluster-config-file($secondary)}</div>
         <div id="placeholder"></div>
@@ -40,7 +43,6 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Security Database Layout",
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.19.0/addon/fold/foldgutter.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.19.0/addon/fold/foldcode.js">{" "}</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.19.0/addon/fold/foldgutter.js">{" "}</script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.19.0/addon/merge/merge.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js">{" "}</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.19.0/addon/merge/merge.js">{" "}</script>
@@ -48,7 +50,7 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Security Database Layout",
             .CodeMirror-merge, .CodeMirror-merge .CodeMirror {
                 height: 600px;
             }
-        ]]></style>
+    ]]></style>
     <script><![CDATA[
                 CodeMirror.MergeView(document.getElementById("placeholder"), {
                     value: document.getElementById("panel1").innerHTML,
@@ -57,7 +59,7 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Security Database Layout",
                     mode: "xml",
                     highlightDifferences: true
                 });
-            ]]></script>
+    ]]></script>
 </div>
 )
 
