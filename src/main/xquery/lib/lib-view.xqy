@@ -2,6 +2,8 @@ xquery version "1.0-ml";
 
 module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view";
 
+declare namespace xdmp = "http://marklogic.com/xdmp";
+
 declare function lib-view:create-bootstrap-page($title as xs:string, $content as element(div)){
     lib-view:create-bootstrap-page($title, $content, ())
 };

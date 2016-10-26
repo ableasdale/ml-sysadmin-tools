@@ -3,6 +3,7 @@ xquery version "1.0-ml";
 import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "/lib/lib-view.xqy";
 
 declare namespace msg = "http://marklogic.com/xdmp/messages";
+declare namespace xdmp = "http://marklogic.com/xdmp";
 
 declare variable $COLLECTION as xs:string := xdmp:get-request-field("col", "XDMP-en.xml");
 

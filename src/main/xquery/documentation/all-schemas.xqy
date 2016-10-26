@@ -3,6 +3,7 @@ xquery version "1.0-ml";
 declare namespace admin = "http://marklogic.com/xdmp/admin";
 declare namespace meters = "http://marklogic.com/manage/meters";
 declare namespace manage = "http://marklogic.com/manage";
+declare namespace xdmp = "http://marklogic.com/xdmp";
 
 import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "/lib/lib-view.xqy";
 import module namespace common = "http://help.marklogic.com/common" at "/lib/common.xqy";

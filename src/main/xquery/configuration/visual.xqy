@@ -2,6 +2,8 @@ xquery version "1.0-ml";
 
 import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "/lib/lib-view.xqy";
 
+declare namespace xdmp = "http://marklogic.com/xdmp";
+
 declare variable $primary as xs:string := xdmp:get-request-field("db1", "databases.xml");
 declare variable $secondary as xs:string := xdmp:get-request-field("db2", "databases_1.xml");
 
