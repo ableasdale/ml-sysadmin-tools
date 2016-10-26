@@ -30,25 +30,25 @@ declare variable $FOREST-COUNTS-REBALANCER := xdmp:forest-counts(xdmp:database-f
 declare variable $FOREST-COUNTS-REINDEXER := xdmp:forest-counts(xdmp:database-forests(xdmp:database($DATABASE)), (), ("preview-reindexer"));
 declare variable $DATABASES  as element(db:database)+ := $ses:databases.xml/node();
 
-declare function common:format($number) {
+declare function common:format($number as xs:double) as xs:string {
     fn:format-number($number,"#,##0.00")
 };
 
-declare function common:ratio($hits, $misses) {
+declare function common:ratio($hits, $misses)  {
     if (fn:sum($hits) gt 0)
     then common:format(100 * fn:sum($hits) div
             (fn:sum($hits) + fn:sum($misses)))
     else 0
 };
 
-declare function common:get-log-directory() {
+declare function common:get-log-directory() as xs:string {
     fn:concat(xdmp:data-directory(), $PATHSEP, "Logs", $PATHSEP)
 };
 
 (:~ 
 
 :)
-declare function common:database-forest-composition() {
+declare function common:database-forest-composition() as element(div) {
     common:database-forest-composition(())
 };
 
