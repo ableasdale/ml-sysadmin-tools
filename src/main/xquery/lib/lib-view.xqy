@@ -92,7 +92,8 @@ declare function lib-view:navigation() as element(div) {
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/documentation/messages.xqy">Exceptions</a></li>
                             <li><a href="/documentation/functions.xqy">Functions</a></li>
-                            <li><a href="/wp-admin/editor.xqy">Schemas</a></li>
+                            <li><a href="/documentation/all-schemas.xqy">All XSD Schemas</a></li>
+                            <li><a href="/documentation/min-max.xqy">Schemas: Max/Min</a></li>
                         </ul>
                     </li>
 

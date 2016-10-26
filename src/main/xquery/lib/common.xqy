@@ -52,7 +52,7 @@ declare function common:database-forest-composition() as element(div) {
     common:database-forest-composition(())
 };
 
-declare function common:database-forest-composition($database-name as xs:string?) {
+declare function common:database-forest-composition($database-name as xs:string?) as element(div) {
     <div class="row">{
         if(fn:empty($database-name))
         then(
@@ -65,13 +65,13 @@ declare function common:database-forest-composition($database-name as xs:string?
     }</div>
 };
 
-declare function common:is-database-enabled($db) {
+declare function common:is-database-enabled($db) as xs:string {
     if(fn:data($db/*[local-name(.) eq "enabled"]) )
     then ("enabled")
     else ("disabled")
 };
 
-declare function common:render-database-forest-composition($db) {
+declare function common:render-database-forest-composition($db) as element(div) {
     let $fragments := 0
     let $dfragments := 0
     let $documents := 0
@@ -160,12 +160,8 @@ declare function common:render-database-forest-composition($db) {
     }
 };
 
-declare function common:get-base-xsd-path() {
-    if (xdmp:platform() eq "linux")
-    then
-        ("/opt/MarkLogic/Config/")
-    else
-        ("C:\Program Files\MarkLogic\Config\")
+declare function common:get-base-xsd-path() as xs:string {
+    xdmp:install-directory()||$PATHSEP||"Config"||$PATHSEP
 };
 
 declare function common:callout($hdr, $content) as element(div) {
