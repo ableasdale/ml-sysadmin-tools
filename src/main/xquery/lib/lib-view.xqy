@@ -39,12 +39,15 @@ declare function lib-view:create-bootstrap-page($title as xs:string, $content as
     },
     element body { $content }
     },
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css" />,
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js">{" "}</script>,
     <script src="https://code.jquery.com/jquery-2.2.1.min.js">{" "}</script>,
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.19.0/codemirror.min.js">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.19.0/mode/xquery/xquery.min.js">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.js">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js">{" "}</script>,
+    <script><![CDATA[hljs.initHighlightingOnLoad();]]></script>,
 
     $additional-resource
 };

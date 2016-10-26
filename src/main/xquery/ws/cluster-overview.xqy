@@ -23,7 +23,7 @@ declare function local:host-get-forest-details($hostname as xs:string) { (: as o
     }
 };
 
-
+xdmp:set-response-content-type("application/json; charset=utf-8"),
 object-node {
     "children" : array-node {
         for $i in xdmp:host-name(xdmp:hosts())
