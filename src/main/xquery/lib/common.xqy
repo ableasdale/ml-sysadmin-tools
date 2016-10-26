@@ -6,6 +6,7 @@ import module namespace ses = "http://www.w3.org/2003/05/xpath-functions" at "/M
 
 declare namespace qry = "http://marklogic.com/cts/query";
 declare namespace sec = "http://marklogic.com/xdmp/security";
+declare namespace cts = "http://marklogic.com/cts";
 
 declare namespace xdmp = "http://marklogic.com/xdmp";
 declare namespace db = "http://marklogic.com/xdmp/database";
@@ -64,6 +65,12 @@ declare function common:database-forest-composition($database-name as xs:string?
     }</div>
 };
 
+declare function common:is-database-enabled($db) {
+    if(fn:data($db/*[local-name(.) eq "enabled"]) )
+    then ("enabled")
+    else ("disabled")
+};
+
 declare function common:render-database-forest-composition($db) {
     let $fragments := 0
     let $dfragments := 0
@@ -72,13 +79,16 @@ declare function common:render-database-forest-composition($db) {
     let $memory := 0
     let $db-name := $db/db:database-name/fn:string(.)
     return
-    element div {attribute class {"panel panel-default"},
+    element div {if(common:is-database-enabled($db) eq "enabled") then (attribute class {"panel panel-success"}) else (attribute class {"panel panel-danger"}),
         element div {attribute class {"panel-heading"}, <h3 class="panel-title">{$db-name}</h3>},
         element div {attribute class {"panel-body"},
+            element h4 {"Database "||$db-name||" is currently "|| common:is-database-enabled($db) ||" and has the following settings configured:"},
             element ul { attribute class {"list-unstyled"},
                 for $c in $db/*[fn:string(.) = "true"]
+                where fn:not(fn:local-name($c) eq "fields") and fn:not(fn:local-name($c) eq "enabled")
                 return element li {fn:local-name($c)}
-            }
+            },
+            element pre {element code {xdmp:quote($db)}}
         },
         element table {attribute class {"table table-striped table-bordered"},
             element thead {

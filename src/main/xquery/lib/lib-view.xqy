@@ -83,6 +83,7 @@ declare function lib-view:navigation() as element(div) {
                             <li><a href="/configuration/security.xqy">Security</a></li>
                             <li><a href="/configuration/visual.xqy">Visual Diff on Config Files</a></li>
                             <li><a href="/configuration/backup.xqy">Backup Config Files</a></li>
+                            <li><a href="/configuration/TODO.xqy"><strong>TODO</strong> Restore from Config Backup</a></li>
                         </ul>
                     </li>
 

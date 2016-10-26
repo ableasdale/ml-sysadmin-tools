@@ -4,6 +4,7 @@ import module namespace common = "http://help.marklogic.com/common" at "/lib/com
 import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "/lib/lib-view.xqy";
 
 declare namespace f = "http://marklogic.com/xdmp/status/forest";
+declare namespace xdmp = "http://marklogic.com/xdmp";
 
 (:~ 
 
@@ -12,7 +13,8 @@ declare function local:database-forest-preview() as element(div) {
     element div {
         attribute class {"row"},
         element h3 {"Database Forest Overview"},
-        element div {attribute id {"forest"},"Forest layout diagram for database ", element strong {$common:DATABASE}},
+        element div {attribute id {"forest"},"Forest layout diagram for database ", 
+        element strong {$common:DATABASE}},
         element hr {" "}
     }
 };
@@ -85,7 +87,7 @@ declare function local:rebalancer-preview() as element(div) {
 };
 
 (: Module main :)
-lib-view:create-bootstrap-page("MarkLogic Tools: Rebalancer preview",
+lib-view:create-bootstrap-page("MarkLogic Tools: Forest Counts for "||$common:DATABASE,
     element div {
         attribute class {"container"},
         lib-view:page-header("Forest Counts (Rebalancer Preview)", $common:DATABASE, lib-view:database-select()),
