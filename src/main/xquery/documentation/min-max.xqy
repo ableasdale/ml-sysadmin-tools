@@ -69,7 +69,7 @@ element div { attribute class {"panel", if( fn:local-name($it) eq "complexType" 
        (: <xs:complexType   and xs:sequence :)
     }
 },
-element pre {xdmp:quote($it)}
+element pre {element code {xdmp:quote($it)}}
 
 
 ) 
