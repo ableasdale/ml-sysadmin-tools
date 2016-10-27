@@ -55,7 +55,7 @@ declare function local:servers() {
                 element tr {
                     element td {fn:data($server/sv:server-name)},
                     element td {fn:data($server/sv:server-kind)},
-                    element td {fn:data($server/sv:enabled)},
+                    element td {if(fn:data($server/sv:enabled eq fn:true())) then(attribute class {"success"}) else(attribute class {"danger"}),  fn:data($server/sv:enabled)},
                     element td {fn:data($server/sv:root)},
                     element td {fn:data($server/sv:port)},
                     element td {fn:data($server/sv:threads)," / ", fn:data($server/sv:max-threads)},
