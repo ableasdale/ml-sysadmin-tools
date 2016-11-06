@@ -20,7 +20,11 @@ declare function local:schema-file($file as xs:string) {
         for $x in xdmp:document-get(concat(common:get-base-xsd-path(), $file))/node()/node()
         return if (fn:exists($x/@name))
         then (local:process($x))
-        else ()
+        else (),
+        element h2 {"Schema Dump"},
+        element pre {
+            element code {xdmp:dump-xsd($file)}
+        }
     },
     element div {attribute class {"row"},
         element a {attribute href {"/documentation/schema-item.xqy"}, "Back to listing >"}   
