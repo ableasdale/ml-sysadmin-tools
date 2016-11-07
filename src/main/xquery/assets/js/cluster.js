@@ -13,7 +13,7 @@
 
 $(document).ready(function () {
 
-    var width = 960, height = 760, radius = 150;
+    var width = 700, height = 650, radius = 130;
     var jsonData;
     d3.json("/ws/cluster-overview.xqy", function (error, data) {
         //if (error) return console.warn(error);
@@ -22,8 +22,8 @@ $(document).ready(function () {
     });
 
 
-// .range(['#74E600', '#26527C', '#61D7A4', '#6CAC2B', '#408AD2', '#218359', '#36D792', '#679ED2', '#B0F26D', '#4B9500', '#98F23D', '#04396C', '#007241']);
-// debug console.dir(d3.select("div#overview").append('p').text('DO we ever see this text?'));
+    // .range(['#74E600', '#26527C', '#61D7A4', '#6CAC2B', '#408AD2', '#218359', '#36D792', '#679ED2', '#B0F26D', '#4B9500', '#98F23D', '#04396C', '#007241']);
+    // debug console.dir(d3.select("div#overview").append('p').text('DO we ever see this text?'));
 
     //var length = 100;
     //var color = d3.scale.linear().domain([1,length]).interpolate(d3.interpolateHcl).range([d3.rgb("#007AFF"), d3.rgb('#FFF500')]);
@@ -77,7 +77,7 @@ $(document).ready(function () {
                     .classed("hidden", false)
                     .append("h4").text(d.name)
                     .append("p").text(d.value.toLocaleString('en') + " Documents");
-                if(d.disksize) {d3.select("#tooltip").append("p").text("Size on disk: "+ d.disksize + "MB")}
+                if (d.disksize) { d3.select("#tooltip").append("p").text("Size on disk: " + d.disksize + "MB") }
             })
             .on("mouseout", function () {
                 // Hide the tooltip
