@@ -8,6 +8,7 @@ declare namespace h="http://marklogic.com/xdmp/hosts";
 declare namespace f="http://marklogic.com/xdmp/status/forest";
 declare namespace sec = "http://marklogic.com/xdmp/security";
 declare namespace g="http://marklogic.com/xdmp/group";
+declare namespace xdmp = "http://marklogic.com/xdmp";
 
 (:
 declare variable $HOSTS := xdmp:hosts();
@@ -82,7 +83,7 @@ declare function local:hosts() {
 };
 
 
-lib-view:create-bootstrap-page("MarkLogic Tools: Security Database Layout",
+lib-view:create-bootstrap-page("MarkLogic Tools: Host Information",
 element div {
 attribute class {"container"},
 	lib-view:page-header("Host information", "Cluster status", " "),
@@ -95,6 +96,3 @@ attribute class {"container"},
 		local:statistics()
 	}
 }, <script src="/assets/js/hosts.js">{" "}</script>)
-
-
-
