@@ -18,7 +18,7 @@ declare variable $HOST-STATUS
 declare function local:cache-status() {
 	(: TODO - we call this three times - which is a bit stupid :)
 	for $hostid at $i in xdmp:hosts()
-	return element pre {xdmp:cache-status($hostid)}
+	return element pre {element code {xdmp:quote(xdmp:cache-status($hostid))}}
 
 };
 
