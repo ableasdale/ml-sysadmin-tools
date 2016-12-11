@@ -15,6 +15,13 @@ declare variable $HOSTS := xdmp:hosts();
 declare variable $HOST-STATUS
 :)
 
+declare function local:cache-status() {
+	(: TODO - we call this three times - which is a bit stupid :)
+	for $hostid at $i in xdmp:hosts()
+	return element pre {xdmp:cache-status($hostid)}
+
+};
+
 declare function local:statistics() {
 	(: TODO - we call this twice - which is a bit stupid :)
 	for $hostid at $i in xdmp:hosts()
@@ -93,6 +100,7 @@ attribute class {"container"},
 	element div {attribute class {"row"},
 		element h4 {"Current Timestamp time: ", element small{xdmp:timestamp-to-wallclock(xdmp:request-timestamp())}},
 	    local:hosts(),
+		local:cache-status(),
 		local:statistics()
 	}
 }, <script src="/assets/js/hosts.js">{" "}</script>)
