@@ -3,7 +3,22 @@ xquery version "1.0-ml";
 import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "/lib/lib-view.xqy";
 import module namespace common = "http://help.marklogic.com/common" at "/lib/common.xqy";
 
+declare namespace xdmp = "http://marklogic.com/xdmp";
+declare namespace cts = "http://marklogic.com/cts";
+
 declare variable $QUERY := cts:and-query((cts:word-query("XDMP"), cts:element-value-query(xs:QName("random"), "7447420811867039164")));
+
+
+declare function local:query-form() {
+    element form {
+        element div {
+            attribute class {"form-group"},
+            element textarea {attribute id {"editor"}, text { $QUERY } },
+            lib-view:form-submit-button("Execute Query")
+        }
+    }
+};
+
 
 (: Module main :)
 lib-view:create-bootstrap-page("MarkLogic Tools: Plan Explorer",
@@ -13,7 +28,7 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Plan Explorer",
         element div {
             attribute class {"row"},
             element h3 {"Your cts:query"},
-            element textarea {attribute id {"editor"}, text { $QUERY } },
+            local:query-form(),
             element h3 {"CTS XML Serialisation of Query"},
             element pre {element code {xdmp:quote(element q {$QUERY}/node())} },
             element h3 {"MarkLogic Plan"},

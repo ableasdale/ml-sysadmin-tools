@@ -6,6 +6,7 @@ import module namespace admin = "http://marklogic.com/xdmp/admin" at "/MarkLogic
 
 declare namespace d = "http://marklogic.com/xdmp/database";
 declare namespace f = "http://marklogic.com/xdmp/status/forest";
+declare namespace xdmp = "http://marklogic.com/xdmp";
 
 declare variable $USER as xs:string := "q"; 
 declare variable $PASS as xs:string := "q"; 

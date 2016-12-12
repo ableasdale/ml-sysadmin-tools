@@ -3,6 +3,7 @@ xquery version "1.0-ml";
 import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" at "/lib/lib-view.xqy";
 import module namespace common = "http://help.marklogic.com/common" at "/lib/common.xqy";
 
+declare namespace xdmp = "http://marklogic.com/xdmp";
 declare variable $LOG as xs:string := xdmp:get-request-field("log", "ErrorLog.txt");
 
 declare function local:file-select(){

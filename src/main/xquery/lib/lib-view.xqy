@@ -169,6 +169,14 @@ declare function lib-view:page-header($title as xs:string, $subtitle as xs:strin
         element div {attribute class {"row"}, lib-view:navigation()}
 };
 
+declare function lib-view:form-submit-button($name as xs:string) as element(button) {
+    element button {
+        attribute type {"submit"},
+        attribute class {"btn btn-default"},
+        $name
+    }
+};
+
 (:
             // Check for the various File API support.
             // https://www.adobe.com/devnet/archive/html5/articles/real-world-example-html5-filesystem-api.html
