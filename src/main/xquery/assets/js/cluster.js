@@ -35,6 +35,7 @@ $(document).ready(function () {
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height * .52 + ")");
 
+
     var partition = d3.layout.partition()
         .sort(null)
         .size([2 * Math.PI, radius * radius])
@@ -56,6 +57,9 @@ $(document).ready(function () {
             // make the outer part a larger area
             return Math.sqrt(d.y + d.dy * 20);
         });
+
+
+
 
     function doUpdate(myData) {
         svg.datum(myData).selectAll("path")
@@ -96,5 +100,14 @@ $(document).ready(function () {
      if we don't have both, nothing is displayed).
      in order for it to work - TODO - figure out how to do this properly and fix it! */
     var path = doUpdate(jsonData);
+
+    var svg2 = d3.select("div#overview").append("svg").attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    //Create an SVG text element and append a textPath element
+    svg2.parentNode.appendChild("text")
+        .append("textPath") //append a textPath to the text element
+        .attr("xlink:href", "#wavy") //place the ID of the path here
+        .style("text-anchor", "middle") //place the text halfway on the arc
+        .attr("startOffset", "50%")
+        .text("3 hosts in current cluster");
 });
 /* end current code for default.xqy */
