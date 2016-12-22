@@ -40,6 +40,7 @@ declare function lib-view:create-bootstrap-page($title as xs:string, $content as
     element body { $content }
     },
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css" />,
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">{" "}</script>,
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js">{" "}</script>,
     <script src="https://code.jquery.com/jquery-2.2.1.min.js">{" "}</script>,
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous">{" "}</script>,
