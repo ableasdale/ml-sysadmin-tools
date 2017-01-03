@@ -75,6 +75,7 @@ declare function lib-view:navigation() as element(div) {
                             <li><a href="/">Overview</a></li>
                             <!-- li><a href="/bi-level.xqy">Bi-Level Database View</a></li -->
                             <li><a href="/data.xqy">Data</a></li>
+                            <li><a href="/cache-status.xqy">Group Level Cache Status</a></li>
                             <li><a href="/hosts.xqy">Hosts</a></li>
                             <li><a href="/servers.xqy">Servers</a></li>
                             <li><a href="/databases.xqy">Databases</a></li>

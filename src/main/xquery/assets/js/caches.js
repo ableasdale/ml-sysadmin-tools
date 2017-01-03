@@ -1,20 +1,27 @@
-google.charts.load("current", { packages: ["corechart"] });
+// google.charts.load("current", { packages: ["corechart"] });
+google.charts.load("current", { packages: ["bar"] });
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
     var data = google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        ['Work', 11],
-        ['Eat', 2],
-        ['Commute', 2],
-        ['Watch TV', 2],
-        ['Sleep', 7]
+        ['Partition Size (MB)', 'Partition Table', 'Partition Busy', 'Partition Used', 'Partition Free', 'Partition Overhead'],
+        ['512', 1.6, 0, 93.7, 6.3, 0],
+        ['512', 1.6, 0, 93.7, 6.3, 0]
     ]);
 
     var options = {
-        title: 'My Daily Activities',
-        is3D: true,
+        chart: {
+            title: 'Group Level Cache Status',
+            subtitle: 'Compressed Tree Cache'
+        },
+        axes: {
+            y: {
+                0: { label: 'percentage (%)' }
+            }
+        }
+        //is3D: true,
     };
 
-    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+    //var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+    var chart = new google.charts.Bar(document.getElementById('piechart_3d'));
     chart.draw(data, options);
 }
