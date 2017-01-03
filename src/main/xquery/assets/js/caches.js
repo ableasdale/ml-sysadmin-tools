@@ -22,6 +22,6 @@ function drawChart() {
     };
 
     //var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-    var chart = new google.charts.Bar(document.getElementById('piechart_3d'));
+    var chart = new google.charts.Bar(document.getElementById('ctc'));
     chart.draw(data, options);
 }
