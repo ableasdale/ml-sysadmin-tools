@@ -13,11 +13,11 @@ element div {
 attribute class {"container"},
 lib-view:page-header("MarkLogic Cluster", "Group Level Caches", " "),
 element div {attribute class {"row"},
-element h4 {xs:string($cache-status/cs:host-name) || " ", element small {xs:string($cache-status/*:host-id)}},
+element h4 {xs:string($cache-status/cs:host-name) || " ", element small {xs:string($cache-status/cs:host-id)}},
 <div id="ctc" style="width: 900px; height: 500px;">{" "}</div>,
 <div id="etc" style="width: 900px; height: 500px;">{" "}</div>,
 <div id="lc" style="width: 900px; height: 500px;">{" "}</div>,
-element p {},
+element p {$cache-status/cs:compressed-tree-cache-partitions},
 element h3 {"Group Level Cache Status"},
 element pre {element code {xdmp:quote($cache-status)}}
 }
