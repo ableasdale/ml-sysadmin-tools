@@ -26,7 +26,7 @@ function drawChart() {
     var data = google.visualization.arrayToDataTable([
         ['Partition Size (MB)', 'Partition Table', 'Partition Busy', 'Partition Used', 'Partition Free', 'Partition Overhead'],
         ['512', 1.6, 0, 93.7, 6.3, 0],
-        ['512', 1.6, 0, 93.7, 6.3, 0]
+        ['256', 1.6, 0, 43.7, 6.3, 0]
     ]);
 
     //is3D: true,
