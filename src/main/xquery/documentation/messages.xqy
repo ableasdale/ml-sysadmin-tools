@@ -4,6 +4,8 @@ import module namespace lib-view = "http://www.marklogic.com/sysadmin/lib-view" 
 
 declare namespace msg = "http://marklogic.com/xdmp/messages";
 declare namespace xdmp = "http://marklogic.com/xdmp";
+declare namespace cts = "http://marklogic.com/cts";
+
 
 declare variable $COLLECTION as xs:string := xdmp:get-request-field("col", "XDMP-en.xml");
 
