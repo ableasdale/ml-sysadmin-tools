@@ -20,8 +20,6 @@ declare variable $strings := ( "size", "ratio", "threshold", "max", "min", "limi
 </div>
 :)
 
-
-
 declare function local:display($name, $it as item()*) {
 if( exists($it/node())) 
 then (
