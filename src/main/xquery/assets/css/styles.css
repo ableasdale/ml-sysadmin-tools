@@ -93,3 +93,4 @@ text {
 }
 
 tfoot tr {border-top: 2px solid #ddd; font-weight:bold;}
+div #cache-data {display: none;}
