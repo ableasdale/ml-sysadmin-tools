@@ -108,6 +108,7 @@ declare function lib-view:navigation() as element(div) {
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Query Tools <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/query-tools/queries.xqy">Running Queries</a></li>
+                            <li><a href="/query-tools/locks.xqy">Transaction Locks</a></li>
                             <li><a href="/query-tools/plan.xqy">Plan Manager</a></li>
                             <li><a href="/query-tools/termkey.xqy">Term Key Lookup</a></li>
                         </ul>
