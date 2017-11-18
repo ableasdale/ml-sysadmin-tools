@@ -47,9 +47,9 @@ declare function lib-view:create-bootstrap-page($title as xs:string, $content as
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.19.0/codemirror.min.js">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.19.0/mode/xquery/xquery.min.js">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.js">{" "}</script>,
+    <script src="https://d3js.org/d3.v4.js">{" "}</script>,
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js">{" "}</script>,
     <script><![CDATA[hljs.initHighlightingOnLoad();]]></script>,
-
     $additional-resource
 };
 
@@ -80,6 +80,7 @@ declare function lib-view:navigation() as element(div) {
                             <li><a href="/servers.xqy">Servers</a></li>
                             <li><a href="/databases.xqy">Databases</a></li>
                             <li><a href="/forests.xqy">Forests</a></li>
+                            <li><a href="/stands.xqy">Stands</a></li>
                             <li><a href="/range-indexes.xqy">Range Index Use</a></li>
                         </ul>
                     </li>
