@@ -9,7 +9,7 @@ declare function lib-view:create-bootstrap-page($title as xs:string, $content as
 };
 
 declare function lib-view:create-bootstrap-page($title as xs:string, $content as element(div), $additional-resource as item()?) {
-    xdmp:log("Creating page: "|| $title),
+    xdmp:log(("Creating page: "|| $title), "debug"),
     xdmp:set-response-content-type("text/html; charset=utf-8"),
     '<!DOCTYPE html>',
     element html {attribute lang {"en"},

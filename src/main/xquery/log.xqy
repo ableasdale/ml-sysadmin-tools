@@ -33,7 +33,7 @@ declare function local:file-select(){
 lib-view:create-bootstrap-page("MarkLogic Tools: Log Viewer",
     element div {
         attribute class {"container"},
-        lib-view:page-header("Log Viewer", $LOG, local:file-select()),
+        lib-view:page-header("Log Viewer", ("Log File: "||$LOG), local:file-select()),
         element div {attribute class {"row"},
             element pre {attribute id {"data"}, attribute style {"height:30em;"},$LOG}
     }},
