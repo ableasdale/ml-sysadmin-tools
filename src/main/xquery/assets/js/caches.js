@@ -4,11 +4,11 @@ google.charts.load("current", {
 
 google.charts.setOnLoadCallback(drawChart);
 
-function generateOptions(subtitle) {
+function generateOptions(title) {
     return {
         chart: {
-            title: 'Group Level Cache Status:',
-            subtitle: subtitle
+            // title: 'Group Level Cache Status:',
+            title: title
         },
         axes: {
             y: {
@@ -60,9 +60,9 @@ function drawChart() {
     var tripleCacheChart = new google.charts.Bar(document.getElementById('tc'));
     var tripleValueCacheChart = new google.charts.Bar(document.getElementById('tvc'));
 
-    compressedTreeChart.draw(dataCTC, generateOptions("Compressed Tree Cache ["+objsCTC.length+" partition(s)]"));
-    expandedTreeChart.draw(dataETC, generateOptions("Expanded Tree Cache ["+objsETC.length+" partition(s)]"));
-    listCacheChart.draw(dataLC, generateOptions("List Cache ["+objsLC.length+" partition(s)]"));
-    tripleCacheChart.draw(dataTC, generateOptions("Triple Cache ["+objsTC.length+" partition(s)]"));
-    tripleValueCacheChart.draw(dataTVC, generateOptions("Triple Value Cache ["+objsTVC.length+" partition(s)]"));
+    compressedTreeChart.draw(dataCTC, generateOptions("Compressed Tree Cache: "+objsCTC.length+" partition(s)"));
+    expandedTreeChart.draw(dataETC, generateOptions("Expanded Tree Cache: "+objsETC.length+" partition(s)"));
+    listCacheChart.draw(dataLC, generateOptions("List Cache: "+objsLC.length+" partition(s)"));
+    tripleCacheChart.draw(dataTC, generateOptions("Triple Cache: "+objsTC.length+" partition(s)"));
+    tripleValueCacheChart.draw(dataTVC, generateOptions("Triple Value Cache: "+objsTVC.length+" partition(s)"));
 }
