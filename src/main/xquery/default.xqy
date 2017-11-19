@@ -10,7 +10,7 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Overview",
     element div {attribute class {"container"},
         lib-view:page-header("MarkLogic Cluster", "Overview", " "),
         element div {attribute class {"row"},    
-            <div class="col-md-8">
+            <div class="col-md-7">
                 {
                     element h4 {"Your system at a glance"},
                     element div {
@@ -18,13 +18,19 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Overview",
                     }
                 },  
             </div>,
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <h5>System Stats</h5>
                 <dl class="dl-horizontal">
+                    <dt>Hostname</dt>
+                    <dd>{xdmp:host-name(xdmp:host())}</dd>
+                    <dt>Cluster name</dt>
+                    <dd>{xdmp:cluster-name(xdmp:cluster())}</dd>
                     <dt>OS / Architecture</dt>
                     <dd>{xdmp:platform() || " (" || xdmp:architecture() || ")"}</dd>
                     <dt>Request Timestamp</dt>
                     <dd>{xdmp:request-timestamp()}</dd>
+                    <dt><em>(as date/time)</em></dt>
+                    <dd>{xdmp:timestamp-to-wallclock(xdmp:request-timestamp())}</dd>
                     <dt>Hosts in cluster</dt>
                     <dd>{count(xdmp:hosts())}</dd>
                     <dt>Total databases</dt>
