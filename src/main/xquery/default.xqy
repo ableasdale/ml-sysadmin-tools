@@ -5,7 +5,7 @@ import module namespace common = "http://help.marklogic.com/common" at "/lib/com
 
 declare namespace xdmp = "http://marklogic.com/xdmp";
 
-(: Module main :)
+(: see https://bl.ocks.org/mbostock/32bd93b1cc0fbccc9bf9 :)
 lib-view:create-bootstrap-page("MarkLogic Tools: Overview",
     element div {attribute class {"container"},
         lib-view:page-header("MarkLogic Cluster", "Overview", " "),

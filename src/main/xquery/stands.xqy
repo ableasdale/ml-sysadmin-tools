@@ -1,5 +1,7 @@
 xquery version "1.0-ml";
 
+(: https://bl.ocks.org/mbostock/3886208 :)
+
 declare namespace xdmp = "http://marklogic.com/xdmp";
 declare namespace cs = "http://marklogic.com/xdmp/status/cache";
 
@@ -17,7 +19,7 @@ declare function local:stands() {
     (:"stands" || $common:DATABASE :)
 };
 
-lib-view:create-bootstrap-page("MarkLogic Tools: Stands",
+lib-view:create-bootstrap-page("MarkLogic Tools: On-Disk Stands",
     element div {
         attribute class {"container"},
         lib-view:page-header("Database: Stands", $common:DATABASE, lib-view:database-select()),
