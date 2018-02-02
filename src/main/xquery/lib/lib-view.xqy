@@ -114,7 +114,14 @@ declare function lib-view:navigation() as element(div) {
                             <li><a href="/query-tools/termkey.xqy">Term Key Lookup</a></li>
                         </ul>
                     </li>
-                    <li><a href="/log.xqy">Logs</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Log Tools <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/log.xqy">Tail Log File</a></li>
+                            <li><a href="/all-host-errorlogs.xqy">Get Logs for all hosts</a></li>
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
         </div>
