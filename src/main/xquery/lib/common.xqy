@@ -14,6 +14,7 @@ declare namespace h = "http://marklogic.com/xdmp/hosts";
 declare namespace hs = "http://marklogic.com/xdmp/status/host";
 declare namespace g = "http://marklogic.com/xdmp/group";
 declare namespace f = "http://marklogic.com/xdmp/status/forest";
+declare namespace l = "http://marklogic.com/xdmp/forest/label";
 
 (: TODO - decide whether this is worth doing?
 declare variable $IDS := map:map();
@@ -264,3 +265,32 @@ declare function common:nav-item($path as xs:string, $name as xs:string) {
 declare function common:generate-filename() as xs:string {
     fn:concat(xdmp:hostname(),"-",fn:format-dateTime(fn:current-dateTime(), "[Y01][M01][D01]-[H01][m01][s01]"),".zip")
 };
+
+(: TODO - copypaste from functx - ensure this is correctly attributed :)
+declare function common:index-of-string($arg as xs:string?, $substring as xs:string) as xs:integer* {
+    if (contains($arg, $substring))
+    then (string-length(substring-before($arg, $substring)) + 1,
+        for $other in common:index-of-string(substring-after($arg, $substring), $substring)
+        return $other + string-length(substring-before($arg, $substring)) + string-length($substring))
+    else()
+ };
+
+ declare function common:forest-label-table($label as element(l:forest-label)) {
+    element table {attribute class {"table table-striped table-bordered"},
+        element thead {
+            element tr {
+                element th {"Local Name"},
+                element th {"Value"},
+                element th {"Additional"}
+            }
+        },
+        element tbody {
+            for $i in $label/*
+            return element tr { element td {fn:local-name($i)}, element td{xs:string($i)},
+            if (fn:contains(fn:local-name($i), "timestamp") or fn:contains(fn:local-name($i), "precise-time"))
+            then (element td{xdmp:timestamp-to-wallclock(fn:data($i))})
+            else (element td{}) 
+            }
+        }
+    }
+ };
