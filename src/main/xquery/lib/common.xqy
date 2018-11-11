@@ -275,7 +275,7 @@ declare function common:index-of-string($arg as xs:string?, $substring as xs:str
     else()
  };
 
- declare function common:forest-label-table($label as element(l:forest-label)) {
+ declare function common:forest-label-table($label as element(l:forest-label), $FID as xs:unsignedLong) {
     element table {attribute class {"table table-striped table-bordered"},
         element thead {
             element tr {
@@ -291,7 +291,7 @@ declare function common:index-of-string($arg as xs:string?, $substring as xs:str
                 if(fn:local-name($i) eq "stands")
                 then (element td{ 
                     for $j in fn:tokenize(fn:data($i), " ")
-                    return element a {attribute class {"padr"}, attribute href {"/stand.xqy?id="||$j}, $j}
+                    return element a {attribute class {"padr"}, attribute href {"/stand.xqy?forest="||$FID||"&amp;id="||$j}, $j}
                 })
                 else (element td{xs:string($i)}),
                 if (fn:contains(fn:local-name($i), "timestamp") or fn:contains(fn:local-name($i), "precise-time"))

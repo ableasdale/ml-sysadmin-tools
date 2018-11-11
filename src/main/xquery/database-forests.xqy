@@ -28,7 +28,7 @@ lib-view:create-bootstrap-page("MarkLogic Tools: Forest Label Information",
         </ul>,
         <h3>Forest Label Status</h3>,
         <h4>{xdmp:forest-name($FID)|| " ("||$FID||")"}</h4>,
-        common:forest-label-table($LABELXML/node()),
+        common:forest-label-table($LABELXML/node(), $FID),
         element pre {element code {xdmp:quote($LABELXML)}},       
         <h3>Forest Counts</h3>,
         element pre {element code {xdmp:quote($COUNTS)}}
