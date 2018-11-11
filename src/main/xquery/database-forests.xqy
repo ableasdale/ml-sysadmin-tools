@@ -5,7 +5,8 @@ import module namespace common = "http://help.marklogic.com/common" at "/lib/com
 
 declare variable $FID as xs:unsignedLong := xs:unsignedLong(xdmp:get-request-field("forestid", xs:string(xdmp:forest("Documents"))));
 declare variable $COUNTS := xdmp:forest-counts($FID);
-declare variable $LABEL := fn:substring($COUNTS//*:path[1], 1, common:index-of-string($COUNTS//*:path[1], $common:PATHSEP)[last()]) || "Label";
+declare variable $PATH := xs:string(xdmp:forest-counts($FID)//*:path)[1];
+declare variable $LABEL := fn:substring($PATH, 1, common:index-of-string($PATH, $common:PATHSEP)[last()]) || "Label";
 declare variable $LABELXML := xdmp:document-get($LABEL,
     <options xmlns="xdmp:document-get">
         <format>xml</format>
