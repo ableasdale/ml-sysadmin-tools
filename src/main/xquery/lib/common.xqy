@@ -287,9 +287,17 @@ declare function common:index-of-string($arg as xs:string?, $substring as xs:str
         element tbody {
             for $i in $label/*
             return element tr { element td {fn:local-name($i)}, element td{xs:string($i)},
-            if (fn:contains(fn:local-name($i), "timestamp") or fn:contains(fn:local-name($i), "precise-time"))
-            then (element td{xdmp:timestamp-to-wallclock(fn:data($i))})
-            else (element td{}) 
+                if (fn:contains(fn:local-name($i), "timestamp") or fn:contains(fn:local-name($i), "precise-time"))
+                then (element td{xdmp:timestamp-to-wallclock(fn:data($i))})
+                else (),
+                if (fn:contains(fn:local-name($i), "database-key") or fn:contains(fn:local-name($i), "master-database"))
+                then (element td{xdmp:database-name(fn:data($i))})
+                else (), 
+                if (fn:contains(fn:local-name($i), "forest"))
+                then (element td {xdmp:forest-name(fn:data($i))})
+                else ()
+
+                (: TODO - finally if none of the contains blocks match, element td {" "} :)
             }
         }
     }

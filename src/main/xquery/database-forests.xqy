@@ -16,9 +16,9 @@ declare variable $LABELXML := xdmp:document-get($LABEL,
         <format>xml</format>
     </options>);
 
-lib-view:create-bootstrap-page("MarkLogic Tools: Rebalancer preview",
+lib-view:create-bootstrap-page("MarkLogic Tools: Forest Label Information",
     <div class="container">{
-        lib-view:page-header("Forest Overview", xdmp:forest-name($FID), " "),
+        lib-view:page-header("Label information ", xdmp:forest-name($FID), " "),
         <ul>{
             for $i in xdmp:databases()
             return (element li {xdmp:database-name($i)},
