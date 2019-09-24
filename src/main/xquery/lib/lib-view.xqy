@@ -120,6 +120,7 @@ declare function lib-view:navigation() as element(div) {
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/log.xqy">Tail Log File</a></li>
                             <li><a href="/all-host-errorlogs.xqy">Get Logs for all hosts</a></li>
+                            <li><a href="/all-host-configfiles.xqy">Get XML Config Files for all hosts</a></li>
                         </ul>
                     </li>
 
